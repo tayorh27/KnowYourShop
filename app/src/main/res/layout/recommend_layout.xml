@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/btn_selector"
+    android:clickable="true"
+    android:paddingLeft="5dp"
+    android:paddingRight="2dp"
+    android:paddingTop="8dp">
+
+    <LinearLayout
+        android:id="@+id/layout_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/shop_logo"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/dominos" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/layout_left"
+        android:paddingLeft="5dp">
+
+        <RatingBar
+            android:id="@+id/shop_rating"
+            style="@style/Base.Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/shop_rating_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/shop_rating"
+            android:text="0" />
+
+        <TextView
+            android:id="@+id/shop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shop_rating"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:text="Shop Name"
+            android:textColor="#000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/shop_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shop_name"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:text="Shop Address"
+            android:textSize="15sp" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_rec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/shop_add"
+            android:layout_marginBottom="5dp"
+            app:bootstrapBrand="success"
+            app:bootstrapText="Recommend"
+            app:roundedCorners="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="96dp"
+            android:background="@color/colorAccent" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

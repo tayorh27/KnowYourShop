@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Know Your Shop</string>
+
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="start">Start</string>
+    <string name="title_slide1">Ready to buy?</string>
+    <string name="desc_slide1">Search for anything you want to buy from shops near you.</string>
+    <string name="title_slide2">Availability</string>
+    <string name="desc_slide2">Know if your nearby shops have what you want to buy.</string>
+    <string name="title_slide3">Favorites</string>
+    <string name="desc_slide3">Save your favorite shop location.</string>
+    <string name="done">Done</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_shop">ShopActivity</string>
+    <string name="action_search">Search</string>
+    <string name="action_info">Info</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="others">Available Areas</string>
+    <string name="recommend">NearBy Shops</string>
+    <string name="ratings">Rate a Shop</string>
+    <string name="title_activity_rating_details">Shop Rating Details</string>
+    <string name="action_check">Check Others</string>
+</resources>
