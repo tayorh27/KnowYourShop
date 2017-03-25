@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.github.bijoysingh.starter.util.PermissionManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -106,6 +108,10 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
             return;
         }
 
+        if (Build.VERSION.SDK_INT > 19) {
+            RequestPermissions();
+        }
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
@@ -120,6 +126,14 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
             }
         }
 
+    }
+
+    private void RequestPermissions() {
+        String[] permissions = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_PHONE_STATE};
+        PermissionManager permissionManager = new PermissionManager(LocationUserActivity.this, permissions);
+        if (!permissionManager.hasAllPermissions()) {
+            permissionManager.requestPermissions(MY_PERMISSION_REQUEST_CODE);
+        }
     }
 
     public void RefreshButton(View v) {
