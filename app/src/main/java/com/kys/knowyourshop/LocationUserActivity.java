@@ -93,6 +93,9 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
         isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if (!isGPSEnabled) {
+            ref.smoothToHide();
+            iv.setVisibility(View.VISIBLE);
+            tv.setText("Your location is not available, please try again.");
             new MaterialDialog.Builder(LocationUserActivity.this)
                     .title("Error")
                     .content("Please enable your GPS")

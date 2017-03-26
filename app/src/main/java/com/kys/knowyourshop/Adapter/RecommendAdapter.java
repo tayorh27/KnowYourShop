@@ -60,14 +60,14 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         return recommendArrayList.size();
     }
 
-    public class RecommendHolder extends RecyclerView.ViewHolder {
+    class RecommendHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
         RatingBar ratingBar;
         TextView rate_number, shopName, shopAdd;
         BootstrapButton button;
 
-        public RecommendHolder(View itemView) {
+        RecommendHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.shop_logo);
             ratingBar = (RatingBar) itemView.findViewById(R.id.shop_rating);

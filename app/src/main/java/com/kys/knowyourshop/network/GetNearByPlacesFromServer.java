@@ -52,10 +52,19 @@ public class GetNearByPlacesFromServer {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //Log.e("onResponse", "Response = " + response);
+                Log.e("onResponse", "Response = " + response);
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONArray array = object.getJSONArray("results");
+                    if (array.length() < 0) {
+                        if (loading != null && iv != null && tv != null) {
+                            loading.smoothToHide();
+                            iv.setVisibility(View.VISIBLE);
+                            tv.setVisibility(View.VISIBLE);
+                            tv.setText("There is no shop available within that radius.");
+                        }
+                        return;
+                    }
                     Log.e("onResponseArray", "ArraySize = " + array.length());
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonObject = array.getJSONObject(i);
@@ -75,6 +84,7 @@ public class GetNearByPlacesFromServer {
                     }
                     if (nearByCallback != null) {
                         nearByCallback.onGetNearByPlaces(recommendArrayList);
+                        Log.e("after", "recommendArrayList = " + recommendArrayList.toString());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

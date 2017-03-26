@@ -61,5 +61,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.6.0-SNAPSHOT'
     compile 'com.github.halysongoncalves:pugnotification:1.8.1'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    compile 'com.ss.bannerslider:bannerslider:1.6.1'
     testCompile 'junit:junit:4.12'
 }

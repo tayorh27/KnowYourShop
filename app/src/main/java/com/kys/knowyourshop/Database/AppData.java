@@ -3,6 +3,8 @@ package com.kys.knowyourshop.Database;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.kys.knowyourshop.Information.User;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,6 +20,36 @@ public class AppData {
     public AppData(Context context) {
         this.context = context;
         prefs = context.getSharedPreferences("app_data", 0);
+    }
+
+    public void setUser(User user) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("id", user.id);
+        editor.putString("username", user.username);
+        editor.putString("email", user.email);
+        editor.putString("mobile", user.mobile);
+        editor.putString("password", user.password);
+        editor.apply();
+    }
+
+    public User getUser() {
+        int id = prefs.getInt("id", 0);
+        String username = prefs.getString("username", "");
+        String email = prefs.getString("email", "");
+        String mobile = prefs.getString("mobile", "");
+        String password = prefs.getString("password", "");
+        User user = new User(id, username, email, mobile, password);
+        return user;
+    }
+
+    public void setLoggedIn(boolean logged) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("logged", logged);
+        editor.apply();
+    }
+
+    public boolean getLoggedIn() {
+        return prefs.getBoolean("logged", false);
     }
 
     public void setLocation(String city, String area, String inside_area, String formatted_address) {

@@ -2,6 +2,7 @@ package com.kys.knowyourshop.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,12 +32,16 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.kys.knowyourshop.Adapter.HomeAdapter;
 import com.kys.knowyourshop.Async.PostGeneralClicks;
 import com.kys.knowyourshop.Async.SyncShops;
+import com.kys.knowyourshop.Callbacks.Adscallback;
 import com.kys.knowyourshop.Callbacks.ShopsCallback;
 import com.kys.knowyourshop.Callbacks.ShopsClickListener;
 import com.kys.knowyourshop.Database.AppData;
+import com.kys.knowyourshop.Information.Ads;
 import com.kys.knowyourshop.Information.Shop;
+import com.kys.knowyourshop.Information.User;
 import com.kys.knowyourshop.MainActivity;
 import com.kys.knowyourshop.R;
+import com.kys.knowyourshop.network.GetAdsFromServer;
 import com.kys.knowyourshop.network.GetShopsFromServer;
 import com.kys.knowyourshop.network.PostShopRecommend;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -48,10 +53,13 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import ss.com.bannerslider.banners.DrawableBanner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.views.BannerSlider;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ShopsCallback, View.OnClickListener, ShopsClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ShopsCallback, View.OnClickListener, ShopsClickListener, Adscallback {
 
     AppData data;
     HomeAdapter adapter;
@@ -63,6 +71,13 @@ public class HomeActivity extends AppCompatActivity
     ArrayList<Shop> current = new ArrayList<>();
     String[] ca;
     private static final int CHECK_OTHERS_CODE = 27;
+    TextView tvUsername, tvAreas;
+    ImageView icon;
+    User user;
+    BannerSlider bannerSlider;
+    ArrayList<Ads> adsArrayList_ = new ArrayList<>();
+    GetAdsFromServer getAdsFromServer;
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -78,12 +93,14 @@ public class HomeActivity extends AppCompatActivity
 
 
         data = new AppData(HomeActivity.this);
+        user = data.getUser();
         ca = data.getLocation();
         getSupportActionBar().setTitle(ca[0]);
         toolbar.setSubtitle(ca[1] + ", " + ca[2]);
 
         Log.e("Locations", ca[0] + ", " + ca[1] + ", " + ca[2]);
 
+        bannerSlider = (BannerSlider) findViewById(R.id.banner_slider1);
         recylerView = (RecyclerView) findViewById(R.id.recyclerView);
         loading = (AVLoadingIndicatorView) findViewById(R.id.loading);
         iv = (ImageView) findViewById(R.id.click_refresh);
@@ -104,24 +121,36 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        TextView tvAreas = (TextView) navigationView.getHeaderView(0).findViewById(R.id.areas);
-        ImageView icon = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
-        ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
-        int color1 = generator.getRandomColor();
-        //int color2 = generator.getColor("user@gmail.com")
-        TextDrawable textDrawable = TextDrawable.builder()
-                .beginConfig()
-                .height(64)
-                .width(64)
-                .toUpperCase()
-                .endConfig()
-                .buildRoundRect("U", color1, 32);
-        icon.setImageDrawable(textDrawable);
+        tvUsername = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tv_username);
+        tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!data.getLoggedIn()) {
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                }
+            }
+        });
+        tvAreas = (TextView) navigationView.getHeaderView(0).findViewById(R.id.areas);
+        icon = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
         tvAreas.setText(ca[1] + ", " + ca[2]);
+        CheckLoggedIn();
 
         navigationView.setNavigationItemSelectedListener(this);
 
         SyncingShops("");
+        getAdsFromServer = new GetAdsFromServer(HomeActivity.this, this);
+        getAdsFromServer.getAds();
+        bannerSlider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int banner_position = bannerSlider.getCurrentSlidePosition();
+                Ads ad = adsArrayList_.get(banner_position);
+                String openLink = ad.link;
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(openLink));
+                startActivity(i);
+            }
+        });
 
     }
 
@@ -133,6 +162,37 @@ public class HomeActivity extends AppCompatActivity
         final GetShopsFromServer getShopsFromServer = new GetShopsFromServer(HomeActivity.this, this);
         getShopsFromServer.getShops(area, loading, iv, tv, avail, btnOthers);
 
+    }
+
+    private void CheckLoggedIn() {
+        if (data.getLoggedIn()) {
+            String username = user.username;
+            ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
+            int color1 = generator.getRandomColor();
+            //int color2 = generator.getColor("user@gmail.com")
+            TextDrawable textDrawable = TextDrawable.builder()
+                    .beginConfig()
+                    .height(64)
+                    .width(64)
+                    .toUpperCase()
+                    .endConfig()
+                    .buildRoundRect(String.valueOf(username.charAt(0)), color1, 32);
+            icon.setImageDrawable(textDrawable);
+            tvUsername.setText(username);
+        } else {
+            ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
+            int color1 = generator.getRandomColor();
+            //int color2 = generator.getColor("user@gmail.com")
+            TextDrawable textDrawable = TextDrawable.builder()
+                    .beginConfig()
+                    .height(64)
+                    .width(64)
+                    .toUpperCase()
+                    .endConfig()
+                    .buildRoundRect("X", color1, 32);
+            icon.setImageDrawable(textDrawable);
+            tvUsername.setText("Login to Account");
+        }
     }
 
     @Override
@@ -254,6 +314,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        getAdsFromServer.getAds();
+        //LoadAds(adsArrayList_);
     }
 
     @Override
@@ -298,5 +360,23 @@ public class HomeActivity extends AppCompatActivity
         PostGeneralClicks postGeneralClicks = new PostGeneralClicks(HomeActivity.this, "log.php", _params);
         postGeneralClicks.execute();
 
+    }
+
+    private void LoadAds(ArrayList<Ads> adsArrayList1) {
+        adsArrayList_.clear();
+        if (adsArrayList1.isEmpty()) {
+            bannerSlider.addBanner(new DrawableBanner(R.drawable.no_slider));
+        } else {
+            adsArrayList_ = adsArrayList1;
+            for (int i = 0; i < adsArrayList1.size(); i++) {
+                Ads ad = adsArrayList1.get(i);
+                bannerSlider.addBanner(new RemoteBanner(ad.image));
+            }
+        }
+    }
+
+    @Override
+    public void onAdsLoaded(ArrayList<Ads> adsArrayList) {
+        LoadAds(adsArrayList);
     }
 }

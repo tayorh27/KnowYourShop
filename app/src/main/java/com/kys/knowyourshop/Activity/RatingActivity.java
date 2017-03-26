@@ -113,7 +113,11 @@ public class RatingActivity extends AppCompatActivity {
             general.error("Please all details must be filled");
             return;
         }
-        String username = "Anon" + new Random().nextInt(500);
+        if (!data.getLoggedIn()) {
+            startActivity(new Intent(RatingActivity.this, LoginActivity.class));
+            return;
+        }
+        String username = data.getUser().username;
         String rv = String.valueOf(rate_value);
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);

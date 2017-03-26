@@ -26,4 +26,8 @@
     <string name="ratings">Rate a Shop</string>
     <string name="title_activity_rating_details">Shop Rating Details</string>
     <string name="action_check">Check Others</string>
+    <string name="register">Register</string>
+    <string name="already"><u>I already have an account</u></string>
+    <string name="forgot"><u>Forgot Password</u></string>
+    <string name="login">Login</string>
 </resources>

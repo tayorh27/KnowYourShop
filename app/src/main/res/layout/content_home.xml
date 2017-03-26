@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_home"
@@ -13,6 +13,7 @@
     tools:showIn="@layout/app_bar_home">
 
     <LinearLayout
+        android:id="@+id/part1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
@@ -23,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
-            android:text="Checking for number of shops available." />
+            android:text="Checking for number of shops available."
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
@@ -34,8 +36,10 @@
 
 
     <FrameLayout
+        android:id="@+id/part2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/part1"
         android:layout_marginTop="10dp">
 
         <android.support.v7.widget.RecyclerView
@@ -76,12 +80,30 @@
             android:layout_gravity="center"
             android:layout_marginTop="70dp"
             android:onClick="CheckOthers"
+            android:visibility="gone"
             app:bootstrapBrand="primary"
             app:bootstrapText="Check Other Areas"
-            android:visibility="gone"
             app:roundedCorners="true" />
 
     </FrameLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
-</LinearLayout>
+        <ss.com.bannerslider.views.BannerSlider
+            android:id="@+id/banner_slider1"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            app:animateIndicators="true"
+            app:defaultBanner="1"
+            app:defaultIndicators="circle"
+            app:indicatorSize="10dp"
+            app:interval="3000"
+            app:loopSlides="true"
+            app:selected_slideIndicator="@color/dot_active"
+            app:unselected_slideIndicator="@color/dot_inactive" />
+    </RelativeLayout>
+
+</RelativeLayout>

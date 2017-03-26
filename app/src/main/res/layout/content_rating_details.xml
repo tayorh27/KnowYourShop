@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="Title"
+                android:hint="Enter Title"
                 android:singleLine="true"
                 android:textStyle="bold" />
 
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:hint="Comment"
+                android:hint="Comment Here"
                 android:inputType="textMultiLine"
                 android:textStyle="normal" />
 

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -158,10 +159,12 @@ public class RecommendActivity extends AppCompatActivity implements View.OnClick
             iv.setVisibility(View.VISIBLE);
             tv.setVisibility(View.VISIBLE);
             tv.setText("There is no shop available within that radius.");
+            Log.e("IsEmpty", "Recommend is empty");
         } else {
             loading.smoothToHide();
             iv.setVisibility(View.GONE);
             tv.setVisibility(View.GONE);
+            Log.e("Not empty", "Recommend at 0 = " + recommends.get(0).shop_name);
             recommendArrayList = recommends;
             adapter.LoadRecyclerView(recommends);
         }
