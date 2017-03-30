@@ -3,7 +3,6 @@ package com.kys.knowyourshop.network;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -11,8 +10,10 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
+import com.kys.knowyourshop.Activity.AccessCodeActivity;
+import com.kys.knowyourshop.Activity.ForgotPasswordActivity;
 import com.kys.knowyourshop.Activity.General;
-import com.kys.knowyourshop.Activity.HomeActivity;
 import com.kys.knowyourshop.AppConfig;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.Information.User;
@@ -22,32 +23,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by sanniAdewale on 26/03/2017.
+ * Created by sanniAdewale on 30/03/2017.
  */
 
-public class GetLoginFromServer {
+public class ForgotPasswordServer {
 
     public Context context;
     public VolleySingleton volleySingleton;
     public RequestQueue requestQueue;
-    String username, password;
+    String email;
     General general;
     AppData data;
 
-    public GetLoginFromServer(Context context, String username, String password) {
+    public ForgotPasswordServer(Context context, String email) {
         this.context = context;
-        this.username = username;
-        this.password = password;
+        this.email = email;
         volleySingleton = VolleySingleton.getInstance();
         requestQueue = volleySingleton.getRequestQueue();
         general = new General(context);
         data = new AppData(context);
     }
 
-    public void LoginUser(final Activity activity) {
+    public void CheckUser() {
 
-        String url = AppConfig.WEB_URL + "LoginUser.php?username=" + username;
-        general.displayDialog("Checking user login details");
+        String url = AppConfig.WEB_URL + "CheckUser.php?email=" + email;
+        general.displayDialog("Confirming email address");
 
         String _url = url.replace(" ", "%20");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, _url, new Response.Listener<String>() {
@@ -56,29 +56,15 @@ public class GetLoginFromServer {
                 try {
                     if (response.contentEquals("null")) {
                         general.dismissDialog();
-                        general.error("Incorrect username");
+                        general.error("Email address does not exist");
                         return;
                     }
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object = jsonArray.getJSONObject(0);
-                    int id = object.getInt("id");
-                    String getUsername = object.getString("username");
-                    String email = object.getString("email");
-                    String mobile = object.getString("mobile");
-                    String getPassword = object.getString("password");
-
-                    if (!getPassword.contentEquals(password)) {
-                        general.dismissDialog();
-                        general.error("Incorrect Password");
-                    } else {
-                        User user = new User(id, getUsername, email, mobile, getPassword);
-                        data.setUser(user);
-                        data.setLoggedIn(true);
-                        general.dismissDialog();
-                        Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show();
-                        context.startActivity(new Intent(context, HomeActivity.class));
-                        activity.finish();
-                    }
+                    String _email = object.getString("email");
+                    String access_code = object.getString("access_code");
+                    general.dismissDialog();
+                    SendEmail(_email, access_code);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -93,5 +79,28 @@ public class GetLoginFromServer {
         });
 
         requestQueue.add(stringRequest);
+    }
+
+    private void SendEmail(String email_, String access_code) {
+        BackgroundMail.newBuilder(context)
+                .withUsername(AppConfig.USERNAME)
+                .withPassword(AppConfig.PASSKEY)
+                .withMailto(email_)
+                .withType(BackgroundMail.TYPE_PLAIN)
+                .withSubject("Password Change Request")
+                .withBody("Enter the below code to change your password.\n\n Access Code - " + access_code)
+                .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
+                    @Override
+                    public void onSuccess() {
+                        context.startActivity(new Intent(context, AccessCodeActivity.class));
+                    }
+                })
+                .withOnFailCallback(new BackgroundMail.OnFailCallback() {
+                    @Override
+                    public void onFail() {
+                        general.error("An error occurred. Check your connectivity and try again.");
+                    }
+                })
+                .send();
     }
 }

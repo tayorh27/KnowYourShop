@@ -29,5 +29,11 @@
     <string name="register">Register</string>
     <string name="already"><u>I already have an account</u></string>
     <string name="forgot"><u>Forgot Password</u></string>
+    <string name="access"><u>Already have access code</u></string>
     <string name="login">Login</string>
+    <string name="acct">Profile</string>
+    <string name="forgotActivity">Request Access Code</string>
+    <string name="accessActivity">Change Password</string>
+    <string name="deals">Shop Deals</string>
+    <string name="search">Search</string>
 </resources>

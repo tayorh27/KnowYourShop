@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +46,10 @@ public class OthersActivity extends AppCompatActivity implements ShopsClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         recylerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         loading = (AVLoadingIndicatorView) findViewById(R.id.loading);
         iv = (ImageView) findViewById(R.id.click_refresh);
@@ -58,6 +64,21 @@ public class OthersActivity extends AppCompatActivity implements ShopsClickListe
 
         SyncAreas();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            //NavUtils.navigateUpFromSameTask(this);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void SyncAreas() {

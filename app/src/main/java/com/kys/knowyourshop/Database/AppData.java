@@ -116,6 +116,16 @@ public class AppData {
         return prefs.getStringSet("shopsAvail", new HashSet<String>());
     }
 
+    public void setVisited(String visited) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("visited", visited);
+        editor.apply();
+    }
+
+    public String getVisited() {
+        return prefs.getString("visited", "");
+    }
+
 
     public void setTourShown(boolean tour) {
         SharedPreferences.Editor editor = prefs.edit();

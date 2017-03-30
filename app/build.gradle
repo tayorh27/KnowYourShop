@@ -62,5 +62,7 @@ dependencies {
     compile 'com.github.halysongoncalves:pugnotification:1.8.1'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
     compile 'com.ss.bannerslider:bannerslider:1.6.1'
+    compile 'com.github.yesidlazaro:GmailBackground:1.2.0'
+    compile 'com.webianks.library:easy-feedback:1.0.0'
     testCompile 'junit:junit:4.12'
 }

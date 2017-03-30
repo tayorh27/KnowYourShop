@@ -19,7 +19,8 @@
             android:id="@+id/shop_logo"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/dominos" />
+            android:background="@drawable/image_shape"
+            android:src="@drawable/ic_photo_black_36px" />
 
     </LinearLayout>
 

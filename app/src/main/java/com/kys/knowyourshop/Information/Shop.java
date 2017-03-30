@@ -24,4 +24,8 @@ public class Shop {
         this.open = open;
         this.close = close;
     }
+
+    public Shop() {
+
+    }
 }

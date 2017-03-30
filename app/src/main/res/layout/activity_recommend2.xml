@@ -50,7 +50,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="70dp">
+                android:layout_marginBottom="20dp">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/myRecyclerView"
@@ -80,7 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="35dp"
+                    android:layout_marginBottom="35dp"
                     android:text="Ooops something went wrong!!!"
                     android:textColor="@color/colorAccent"
                     android:visibility="gone" />
@@ -140,9 +140,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="PostRecommend"
-                    app:bootstrapText="Recommend"
                     app:bootstrapBrand="success"
                     app:bootstrapSize="lg"
+                    app:bootstrapText="Recommend"
                     app:buttonMode="regular"
                     app:roundedCorners="true"
                     app:showOutline="false" />

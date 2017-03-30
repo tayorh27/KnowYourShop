@@ -55,6 +55,10 @@ public class RecommendActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend2);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
         sh = (EditText) findViewById(R.id.edit_shop_name);
         add = (EditText) findViewById(R.id.edit_shop_add);
         tel = (EditText) findViewById(R.id.edit_shop_phone);
@@ -133,7 +137,8 @@ public class RecommendActivity extends AppCompatActivity implements View.OnClick
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            //NavUtils.navigateUpFromSameTask(this);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

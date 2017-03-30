@@ -20,48 +20,56 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:hint="Username">
 
                 <EditText
                     android:id="@+id/edit_username"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:hint="Email Address">
 
                 <EditText
                     android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:hint="Mobile">
 
                 <EditText
                     android:id="@+id/edit_mobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:hint="Password">
 
                 <EditText
                     android:id="@+id/edit_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <RelativeLayout
@@ -85,6 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/btnReg"
                     android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
                     android:onClick="AlreadyHaveAccount"
                     android:text="@string/already"
                     android:textColor="@color/colorAccent"

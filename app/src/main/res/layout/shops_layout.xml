@@ -19,7 +19,8 @@
             android:id="@+id/shop_logo"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:src="@drawable/dominos" />
+            android:background="@drawable/image_shape"
+            android:src="@drawable/ic_photo_black_36px" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/btnClosed"
@@ -77,13 +78,15 @@
 
         <!--<com.varunest.sparkbutton.SparkButton-->
         <!--android:id="@+id/spark_button"-->
-        <!--android:layout_width="40dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--app:sparkbutton_activeImage="@drawable/active_image"-->
-        <!--app:sparkbutton_inActiveImage="@drawable/inactive_image"-->
-        <!--app:sparkbutton_iconSize="40dp"-->
-        <!--app:sparkbutton_primaryColor="@color/primary_color"-->
-        <!--app:sparkbutton_secondaryColor="@color/secondary_color" />-->
+        <!--android:layout_width="28dp"-->
+        <!--android:layout_height="28dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_below="@+id/shop_desc"-->
+        <!--app:sparkbutton_activeImage="@drawable/ic_heart_on"-->
+        <!--app:sparkbutton_iconSize="28dp"-->
+        <!--app:sparkbutton_inActiveImage="@drawable/ic_heart_off"-->
+        <!--app:sparkbutton_primaryColor="@color/spark_primary_color"-->
+        <!--app:sparkbutton_secondaryColor="@color/spark_secondary_color" />-->
 
         <View
             android:layout_width="match_parent"

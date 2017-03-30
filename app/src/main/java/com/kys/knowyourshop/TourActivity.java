@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kys.knowyourshop.Database.AppData;
+import com.kys.knowyourshop.Information.Shop;
 
 import java.util.ArrayList;
 
@@ -72,19 +73,17 @@ public class TourActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        if(data.getTourShown()){
+        if (data.getTourShown()) {
             launchHomeScreen();
         }
     }
 
-    public void btnSkipClick(View v)
-    {
+    public void btnSkipClick(View v) {
         data.setTourShown(true);
         launchHomeScreen();
     }
 
-    public  void btnNextClick(View v)
-    {
+    public void btnNextClick(View v) {
         // checking for last page
         // if last page home screen will be launched
         int current = getItem(1);
@@ -150,10 +149,10 @@ public class TourActivity extends Activity {
     }
 
     private void launchHomeScreen() {
-//        ArrayList<Details> detailses = new ArrayList<>();
-//        Details details = new Details(0,"","","","","no_date","");
-//        detailses.add(details);
-//        MyApplication.getWritableDatabase().insertMyPost(detailses,false);
+        ArrayList<Shop> detailses = new ArrayList<>();
+        Shop details = new Shop(0, "no_shop", "", "", "", "", "", "", "", "", "", "", "");
+        detailses.add(details);
+        MyApplication.getWritableDatabase().insertMyShop(detailses, false);
         startActivity(new Intent(this, LocationUserActivity.class));
         finish();
     }

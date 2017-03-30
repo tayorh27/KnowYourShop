@@ -7,6 +7,7 @@ import android.support.multidex.MultiDex;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
+import com.kys.knowyourshop.Database.DatabaseDb;
 import com.kys.knowyourshop.Service.MyLocationService;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -18,7 +19,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class MyApplication extends Application {
     private static MyApplication sInstance;
     private String TASK_TAG_PERIODIC = "myTask";
-    //private static DatabaseDb database;
+    private static DatabaseDb database;
 
 
     @Override
@@ -38,7 +39,7 @@ public class MyApplication extends Application {
                 .build()
         );
         MyTask();
-        //database = new DatabaseDb(this);
+        database = new DatabaseDb(this);
     }
 
     private void MyTask() {
@@ -59,11 +60,11 @@ public class MyApplication extends Application {
         return sInstance.getApplicationContext();
     }
 
-//    public synchronized static DatabaseDb getWritableDatabase(){
-//        if (database == null){
-//            database = new DatabaseDb(getAppContext());
-//        }
-//        return database;
-//
-//    }
+    public synchronized static DatabaseDb getWritableDatabase() {
+        if (database == null) {
+            database = new DatabaseDb(getAppContext());
+        }
+        return database;
+
+    }
 }

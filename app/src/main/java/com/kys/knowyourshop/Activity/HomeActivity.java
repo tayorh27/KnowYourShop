@@ -30,6 +30,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.kys.knowyourshop.Adapter.HomeAdapter;
+import com.kys.knowyourshop.AppConfig;
 import com.kys.knowyourshop.Async.PostGeneralClicks;
 import com.kys.knowyourshop.Async.SyncShops;
 import com.kys.knowyourshop.Callbacks.Adscallback;
@@ -45,6 +46,7 @@ import com.kys.knowyourshop.network.GetAdsFromServer;
 import com.kys.knowyourshop.network.GetShopsFromServer;
 import com.kys.knowyourshop.network.PostShopRecommend;
 import com.wang.avi.AVLoadingIndicatorView;
+import com.webianks.easy_feedback.EasyFeedback;
 
 import org.joda.time.YearMonth;
 
@@ -53,6 +55,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
 import ss.com.bannerslider.views.BannerSlider;
@@ -127,25 +130,37 @@ public class HomeActivity extends AppCompatActivity
             public void onClick(View v) {
                 if (!data.getLoggedIn()) {
                     startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                } else {
+                    startActivity(new Intent(HomeActivity.this, AccountActivity.class));
                 }
             }
         });
         tvAreas = (TextView) navigationView.getHeaderView(0).findViewById(R.id.areas);
         icon = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (data.getLoggedIn()) {
+                    startActivity(new Intent(HomeActivity.this, AccountActivity.class));
+                } else {
+                    startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                }
+            }
+        });
         tvAreas.setText(ca[1] + ", " + ca[2]);
         CheckLoggedIn();
 
         navigationView.setNavigationItemSelectedListener(this);
 
         SyncingShops("");
-        getAdsFromServer = new GetAdsFromServer(HomeActivity.this, this);
-        getAdsFromServer.getAds();
+
         bannerSlider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int banner_position = bannerSlider.getCurrentSlidePosition();
                 Ads ad = adsArrayList_.get(banner_position);
                 String openLink = ad.link;
+                Log.e("banner", "clicked = " + openLink + " position = " + banner_position);
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(openLink));
                 startActivity(i);
@@ -182,7 +197,6 @@ public class HomeActivity extends AppCompatActivity
         } else {
             ColorGenerator generator = ColorGenerator.MATERIAL; // or use DEFAULT
             int color1 = generator.getRandomColor();
-            //int color2 = generator.getColor("user@gmail.com")
             TextDrawable textDrawable = TextDrawable.builder()
                     .beginConfig()
                     .height(64)
@@ -242,11 +256,20 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_recommend) {
             startActivity(new Intent(HomeActivity.this, RecommendActivity.class));
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.nav_deals) {
+            startActivity(new Intent(HomeActivity.this, DealsActivity.class));
+        } else if (id == R.id.nav_account) {
+            if (data.getLoggedIn()) {
+                startActivity(new Intent(HomeActivity.this, AccountActivity.class));
+            } else {
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            }
+        } else if (id == R.id.nav_feed) {
+            new EasyFeedback.Builder(this)
+                    .withEmail(AppConfig.USERNAME)
+                    .withSystemInfo()
+                    .build()
+                    .start();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -314,6 +337,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        getAdsFromServer = new GetAdsFromServer(HomeActivity.this, this);
         getAdsFromServer.getAds();
         //LoadAds(adsArrayList_);
     }

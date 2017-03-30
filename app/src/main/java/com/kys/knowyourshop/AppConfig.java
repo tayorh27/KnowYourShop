@@ -14,4 +14,7 @@ public class AppConfig {
     public static String GET_NEARBY_PLACES = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=";
 
     public static String API_KEY_FOR_DISTANCE_DURATION = "AIzaSyCp0vrFKhLhFcq8lyc2Z6Zf6UFeZnsZcnY";
+
+    public static String USERNAME = "gisanrinadetayo@gmail.com";
+    public static String PASSKEY = "gafarmariam1234$";
 }

@@ -16,9 +16,12 @@ import com.android.volley.toolbox.ImageLoader;
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.kys.knowyourshop.AppConfig;
 import com.kys.knowyourshop.Callbacks.ShopsClickListener;
+import com.kys.knowyourshop.Callbacks.SparkButtonCallback;
 import com.kys.knowyourshop.Information.Shop;
+import com.kys.knowyourshop.MyApplication;
 import com.kys.knowyourshop.R;
 import com.kys.knowyourshop.network.VolleySingleton;
+import com.varunest.sparkbutton.SparkButton;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -93,6 +96,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         if (getTime < getTime1 || getTime > getTime2) {
             holder.button.setVisibility(View.VISIBLE);
         }
+
+//        ArrayList<Shop> favShops = MyApplication.getWritableDatabase().getAllMyShop();
+//        for (int i = 0; i < favShops.size(); i++) {
+//            Shop shop = favShops.get(i);
+//            if (shop.name.contentEquals(current.name)) {
+//                holder.sparkButton.setChecked(true);
+//            } else {
+//                holder.sparkButton.setChecked(false);
+//            }
+//        }
     }
 
     @Override
@@ -108,6 +121,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         TextView sName, sDesc;
         RelativeLayout relativeLayout;
         BootstrapButton button;
+        //SparkButton sparkButton;
 
         HomeHolder(View itemView) {
             super(itemView);
@@ -126,6 +140,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
                     }
                 }
             });
+//            sparkButton = (SparkButton) itemView.findViewById(R.id.spark_button);
+//            sparkButton.setAnimationSpeed(1.5f);
+//            sparkButton.setClipChildren(false);
+//            sparkButton.setClipToPadding(false);
+//            sparkButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (sparkButton.isChecked()) {
+//                    } else {
+//
+//                    }
+//                }
+//            });
         }
     }
 }

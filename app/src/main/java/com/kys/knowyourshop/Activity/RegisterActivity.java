@@ -51,7 +51,6 @@ public class RegisterActivity extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String mobile = etMobile.getText().toString();
         String password = etPassword.getText().toString();
-        String access_code = "KYS" + username.substring(0, 1) + email.substring(0, 1) + new Random().nextInt(1000);
 
         if (username.isEmpty() || email.isEmpty() || mobile.isEmpty() || password.isEmpty()) {
             general.error("Please all fields must be filled");
@@ -61,8 +60,24 @@ public class RegisterActivity extends AppCompatActivity {
             general.error("Invalid email address");
             return;
         }
+        String access_code = "KYS" + username.substring(0, 2) + email.substring(0, 2) + new Random().nextInt(1000);
         PostRegisterUser postRegisterUser = new PostRegisterUser(RegisterActivity.this, username, email, mobile, password, access_code);
         postRegisterUser.Register(RegisterActivity.this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == android.R.id.home){
+            NavUtils.navigateUpFromSameTask(this);
+            //finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

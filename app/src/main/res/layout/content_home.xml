@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/part1"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -102,8 +103,8 @@
             app:indicatorSize="10dp"
             app:interval="3000"
             app:loopSlides="true"
-            app:selected_slideIndicator="@color/dot_active"
-            app:unselected_slideIndicator="@color/dot_inactive" />
+            app:selected_slideIndicator="@drawable/indicator_circle_selected"
+            app:unselected_slideIndicator="@drawable/indicator_circle_unselected" />
     </RelativeLayout>
 
 </RelativeLayout>

@@ -140,10 +140,35 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
     }
 
     public void RefreshButton(View v) {
-        displayLocation();
+        if (!isGPSEnabled) {
+            ref.smoothToHide();
+            iv.setVisibility(View.VISIBLE);
+            tv.setText("Your location is not available, please try again.");
+            new MaterialDialog.Builder(LocationUserActivity.this)
+                    .title("Error")
+                    .content("Please enable your GPS")
+                    .negativeText("OK")
+                    .positiveText("Open Settings")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(intent);
+                        }
+                    }).show();
+            return;
+        }
+        if (checkPlayServices()) {
+            buildGoogleApiClient();
+            createLocationRequest();
+            displayLocation();
+        }
     }
 
     private void displayLocation() {
+        ref.smoothToShow();
+        iv.setVisibility(View.GONE);
+        tv.setText("Getting your location...");
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{
@@ -153,17 +178,19 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
             return;
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        double latitude = 0, longitude = 0;
         if (mLastLocation != null) {
-            double latitude = mLastLocation.getLatitude();
-            double longitude = mLastLocation.getLongitude();
+            latitude = mLastLocation.getLatitude();
+            longitude = mLastLocation.getLongitude();
             data.setLatLng(String.valueOf(latitude), String.valueOf(longitude));
             GetLocationFromServer getLocationFromServer = new GetLocationFromServer(LocationUserActivity.this, latitude, longitude, this);
             getLocationFromServer.Locate();
             Log.e("Location Update", "LatLng = " + latitude + " / " + longitude);
-        } else {
-            //ref.smoothToHide();
-            //iv.setVisibility(View.VISIBLE);
-            //tv.setText("Your location is not available, please try again.");
+            if (latitude == 0 && longitude == 0) {
+                ref.smoothToHide();
+                iv.setVisibility(View.VISIBLE);
+                tv.setText("Your location is not available, please try again.");
+            }
         }
     }
 

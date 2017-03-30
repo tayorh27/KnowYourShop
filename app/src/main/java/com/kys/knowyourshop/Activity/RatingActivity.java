@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.beardedhen.androidbootstrap.BootstrapAlert;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.MainActivity;
 import com.kys.knowyourshop.R;
@@ -27,6 +28,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class RatingActivity extends AppCompatActivity {
 
     TextView shopName, shopDetails;
+    BootstrapAlert visited;
     RatingBar ratingBar;
     AppData data;
     String shop_name = "", rate_title = "", rate_comment = "", items = "";
@@ -49,6 +51,7 @@ public class RatingActivity extends AppCompatActivity {
         general = new General(RatingActivity.this);
         shopName = (TextView) findViewById(R.id.rate_shop_name);
         shopDetails = (TextView) findViewById(R.id.rate_shop_details);
+        visited = (BootstrapAlert) findViewById(R.id.tvVisited);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setNumStars(5);
         ratingBar.setMax(5);
@@ -60,6 +63,7 @@ public class RatingActivity extends AppCompatActivity {
                 rate_value = rating;
             }
         });
+        visited.setContentDescription(data.getVisited());
     }
 
     public void ShopNameClick(View view) {
@@ -131,6 +135,7 @@ public class RatingActivity extends AppCompatActivity {
 
     public void NotClick(View view) {
         data.setRatingAvailable(false);
+        data.setVisited("");
         startActivity(new Intent(RatingActivity.this, HomeActivity.class));
         finish();
     }
@@ -144,7 +149,8 @@ public class RatingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            //NavUtils.navigateUpFromSameTask(this);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

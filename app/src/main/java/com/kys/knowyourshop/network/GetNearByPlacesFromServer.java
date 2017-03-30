@@ -52,7 +52,7 @@ public class GetNearByPlacesFromServer {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("onResponse", "Response = " + response);
+                //Log.e("onResponse", "Response = " + response);
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONArray array = object.getJSONArray("results");
@@ -65,21 +65,23 @@ public class GetNearByPlacesFromServer {
                         }
                         return;
                     }
-                    Log.e("onResponseArray", "ArraySize = " + array.length());
+                    JSONObject jsonObject_ = array.getJSONObject(0);
+                    Log.e("onArrayObject", "ArrayObject = " + jsonObject_.toString());
+                    //Log.e("onResponseArray", "ArraySize = " + array.length());
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonObject = array.getJSONObject(i);
-                        Log.e("onArrayObject", "ArrayObject = " + jsonObject.toString());
-                        String icon = jsonObject.getString("icon");
-                        String name = jsonObject.getString("name");
+                        //Log.e("onArrayObject", "ArrayObject = " + jsonObject.toString());
+                        String _icon = jsonObject.getString("icon");
+                        String _name = jsonObject.getString("name");
                         String add = jsonObject.getString("vicinity");
-                        String rating = "";
-                        if (jsonObject.getString("rating") != null) {
-                            rating = jsonObject.getString("rating");
+                        String _rating = "";
+                        if (!jsonObject.isNull("rating")) {
+                            _rating = jsonObject.getString("rating");
                         } else {
-                            rating = "0";
+                            _rating = "0";
                         }
-                        Log.e("name" + i, "Name of place = " + name);
-                        Recommend recommend = new Recommend(icon, rating, name, add);
+                        Log.e("name" + i, "Name of place = " + _name);
+                        Recommend recommend = new Recommend(_icon, _rating, _name, add);
                         recommendArrayList.add(recommend);
                     }
                     if (nearByCallback != null) {

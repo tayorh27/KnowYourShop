@@ -124,7 +124,8 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            //NavUtils.navigateUpFromSameTask(this);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

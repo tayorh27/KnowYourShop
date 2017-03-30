@@ -24,10 +24,12 @@ import com.kys.knowyourshop.Callbacks.LocationCallback;
 import com.kys.knowyourshop.Callbacks.ShopsCallback;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.Information.Shop;
+import com.kys.knowyourshop.Information.User;
 import com.kys.knowyourshop.network.GetLocationFromServer;
 import com.kys.knowyourshop.network.GetShopsFromServer;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -155,6 +157,12 @@ public class UserLocationService implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onShopsLoaded(ArrayList<Shop> shops) {
         if (!shops.isEmpty()) {
+            Calendar calendar = Calendar.getInstance();
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            String[] mths = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            String date = day + "/" + mths[month] + "/" + year;
             Log.e("After Inside Area", "Inside Area Size = " + shops.size());
             data.setRatingAvailable(true);
             Set<String> myShops = new HashSet<>();
@@ -162,13 +170,21 @@ public class UserLocationService implements GoogleApiClient.ConnectionCallbacks,
                 myShops.add(shops.get(i).name);
             }
             data.setShopsAvailable(myShops);
+            String username = "";
             String inside_area = shops.get(0).inside_area;
             String area = shops.get(0).area;
             String city = shops.get(0).city;
+            User user = data.getUser();
+            if (user.username.isEmpty()) {
+                username = "user";
+            } else {
+                username = user.username;
+            }
+            data.setVisited("Hello " + username + ", you were located at " + inside_area + ", " + area + ", " + city + " on " + date + ". Did you visit any shop around there?");
             PugNotification.with(MyApplication.getAppContext())
                     .load()
                     .title("KnowYourShop")
-                    .message("Hello user, you were on " + inside_area + ", " + area + ", " + city + " today. \nDid you visit any shop around there? Click to rate that shop.")
+                    .message("Hello " + username + ", you were on " + inside_area + ", " + area + ", " + city + " today. \nDid you visit any shop around there? Click to rate that shop.")
                     .bigTextStyle(Notification.EXTRA_BIG_TEXT)
 
                     .smallIcon(R.drawable.pugnotification_ic_launcher)

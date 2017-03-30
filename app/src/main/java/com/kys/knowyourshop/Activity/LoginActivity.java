@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -27,6 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         general = new General(LoginActivity.this);
         etUsername = (EditText) findViewById(R.id.edit_username);
         etPass = (EditText) findViewById(R.id.edit_pass);
@@ -38,8 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void ForgotPassword(View view) {
-        //startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-        //finish();
+        startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+        finish();
     }
 
     public void LoginUser(View view) {
@@ -51,5 +56,20 @@ public class LoginActivity extends AppCompatActivity {
         }
         GetLoginFromServer getLoginFromServer = new GetLoginFromServer(LoginActivity.this, username, password);
         getLoginFromServer.LoginUser(LoginActivity.this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            //NavUtils.navigateUpFromSameTask(this);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

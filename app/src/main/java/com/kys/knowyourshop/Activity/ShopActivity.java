@@ -202,7 +202,8 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            //NavUtils.navigateUpFromSameTask(this);
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,10 +1,9 @@
 package com.kys.knowyourshop.network;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -12,42 +11,40 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.kys.knowyourshop.Activity.General;
-import com.kys.knowyourshop.Activity.HomeActivity;
 import com.kys.knowyourshop.AppConfig;
+import com.kys.knowyourshop.Callbacks.VerifyAccessCodeCallback;
 import com.kys.knowyourshop.Database.AppData;
-import com.kys.knowyourshop.Information.User;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by sanniAdewale on 26/03/2017.
+ * Created by sanniAdewale on 30/03/2017.
  */
 
-public class GetLoginFromServer {
+public class VerifyAccessCode {
 
     public Context context;
     public VolleySingleton volleySingleton;
     public RequestQueue requestQueue;
-    String username, password;
+    String access_code;
     General general;
-    AppData data;
+    VerifyAccessCodeCallback codeCallback;
 
-    public GetLoginFromServer(Context context, String username, String password) {
+    public VerifyAccessCode(Context context, String access_code, VerifyAccessCodeCallback codeCallback) {
         this.context = context;
-        this.username = username;
-        this.password = password;
+        this.access_code = access_code;
+        this.codeCallback = codeCallback;
         volleySingleton = VolleySingleton.getInstance();
         requestQueue = volleySingleton.getRequestQueue();
         general = new General(context);
-        data = new AppData(context);
     }
 
-    public void LoginUser(final Activity activity) {
+    public void CheckAccessCode(final CardView cardView, final TextView textView) {
 
-        String url = AppConfig.WEB_URL + "LoginUser.php?username=" + username;
-        general.displayDialog("Checking user login details");
+        String url = AppConfig.WEB_URL + "CheckAccess.php?access_code=" + access_code;
+        general.displayDialog("Verifying access code");
 
         String _url = url.replace(" ", "%20");
         StringRequest stringRequest = new StringRequest(Request.Method.GET, _url, new Response.Listener<String>() {
@@ -56,28 +53,18 @@ public class GetLoginFromServer {
                 try {
                     if (response.contentEquals("null")) {
                         general.dismissDialog();
-                        general.error("Incorrect username");
+                        general.error("Access Code cannot be verified");
                         return;
                     }
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject object = jsonArray.getJSONObject(0);
-                    int id = object.getInt("id");
-                    String getUsername = object.getString("username");
-                    String email = object.getString("email");
-                    String mobile = object.getString("mobile");
-                    String getPassword = object.getString("password");
-
-                    if (!getPassword.contentEquals(password)) {
-                        general.dismissDialog();
-                        general.error("Incorrect Password");
-                    } else {
-                        User user = new User(id, getUsername, email, mobile, getPassword);
-                        data.setUser(user);
-                        data.setLoggedIn(true);
-                        general.dismissDialog();
-                        Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show();
-                        context.startActivity(new Intent(context, HomeActivity.class));
-                        activity.finish();
+                    String _email = object.getString("email");
+                    String username = object.getString("username");
+                    cardView.setVisibility(View.VISIBLE);
+                    textView.setText(_email);
+                    general.dismissDialog();
+                    if (codeCallback != null) {
+                        codeCallback.onAccessCode(username);
                     }
 
                 } catch (JSONException e) {

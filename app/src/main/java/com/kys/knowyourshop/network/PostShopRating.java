@@ -76,6 +76,7 @@ public class PostShopRating implements RatingCallback {
                     success = jsonObject.getInt("success");
                     if (success == 1) {
                         data.setRatingAvailable(false);
+                        data.setVisited("");
                         PostShopClicks();
                         new UpdateRatingTask().execute();
                         general.dismissDialog();
@@ -112,7 +113,7 @@ public class PostShopRating implements RatingCallback {
                 params.put("shop_name", shopName);
                 params.put("username", username);
                 params.put("rating_title", title);
-                params.put("rating_comment", comment);
+                params.put("rating_comment", comment.replace("'", ""));
                 params.put("rating_star", star);
                 params.put("items", items);
                 params.put("rating_date", date);
@@ -154,6 +155,7 @@ public class PostShopRating implements RatingCallback {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         data.setRatingAvailable(false);
+                        data.setVisited("");
                         context.startActivity(new Intent(context, HomeActivity.class));
                         activity.finish();
                     }

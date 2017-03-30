@@ -15,15 +15,22 @@
         <!--android:icon="@drawable/ic_menu_slideshow"-->
         <!--android:title="Favorite Shops" />-->
         <item
-            android:id="@+id/nav_share"
+            android:id="@+id/nav_account"
             android:icon="@drawable/ic_account_circle_black_24px"
             android:title="Account" />
         <item
-            android:id="@+id/nav_send"
-            android:icon="@drawable/ic_settings_black_24px"
-            android:title="Settings" />
+            android:id="@+id/nav_deals"
+            android:icon="@drawable/ic_card_giftcard_black_24px"
+            android:title="Shop Deals" />
+        <!--<item-->
+        <!--android:id="@+id/nav_fav"-->
+        <!--android:icon="@drawable/ic_settings_black_24px"-->
+        <!--android:title="Favorite Shops" />-->
+        <item
+        android:id="@+id/nav_feed"
+        android:icon="@drawable/ic_feedback_black_24px"
+        android:title="Feedback" />
     </group>
-
     <!--<item android:title="Communicate">-->
     <!--<menu>-->
     <!--<item-->
