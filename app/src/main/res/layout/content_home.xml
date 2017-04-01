@@ -40,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/part1"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp">
+        android:layout_marginBottom="0dp"
+        android:layout_marginTop="10dp">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -97,14 +97,15 @@
             android:id="@+id/banner_slider1"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            app:animateIndicators="true"
             app:defaultBanner="1"
+            app:interval="3000"
+            app:loopSlides="true" />
+    </RelativeLayout>
+    <!--
             app:defaultIndicators="circle"
             app:indicatorSize="10dp"
-            app:interval="3000"
-            app:loopSlides="true"
             app:selected_slideIndicator="@drawable/indicator_circle_selected"
-            app:unselected_slideIndicator="@drawable/indicator_circle_unselected" />
-    </RelativeLayout>
-
+            app:unselected_slideIndicator="@drawable/indicator_circle_unselected"
+            app:animateIndicators="true"
+                -->
 </RelativeLayout>

@@ -106,7 +106,7 @@ public class GetShopsFromServer {
                     iv.setVisibility(View.VISIBLE);
                     tv.setVisibility(View.VISIBLE);
                     btnOthers.setVisibility(View.VISIBLE);
-                    tv.setText("There is no shop available in your area.");
+                    tv.setText("An error occurred. Check your internet connection.");
                     avail.setText("There is no shop available in your area.");
                 }
             }
@@ -171,7 +171,7 @@ public class GetShopsFromServer {
                     iv.setVisibility(View.VISIBLE);
                     tv.setVisibility(View.VISIBLE);
                     btnOthers.setVisibility(View.VISIBLE);
-                    tv.setText("There is no shop available in your area.");
+                    tv.setText("An error occurred. Check your internet connection.");
                     avail.setText("There is no shop available in your area.");
                 }
             }

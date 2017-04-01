@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.beardedhen.androidbootstrap.TypefaceProvider;
+import com.devs.acr.AutoErrorReporter;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
 import com.kys.knowyourshop.Database.DatabaseDb;
@@ -40,6 +41,10 @@ public class MyApplication extends Application {
         );
         MyTask();
         database = new DatabaseDb(this);
+        AutoErrorReporter.get(this)
+                .setEmailAddresses("gisanrinadetayo@gmail.com")
+                .setEmailSubject("Auto Crash Report")
+                .start();
     }
 
     private void MyTask() {

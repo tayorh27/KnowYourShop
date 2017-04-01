@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/r1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+
+        <TextView
+            android:id="@+id/tvDeal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/bootstrap_brand_success"
+            android:padding="20dp"
+            android:text="NGN5,000 OFF"
+            android:textColor="#fff"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/tvExpire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Jul 31, 2017" />
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDeal"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:text="Comment"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvShopName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvComment"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:text="Shop Name" />
+
+        <TextView
+            android:id="@+id/tvInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvComment"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:text="@string/info"
+            android:textColor="@color/colorAccent" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/r1"
+        android:background="#ccc" />
+
+</RelativeLayout>

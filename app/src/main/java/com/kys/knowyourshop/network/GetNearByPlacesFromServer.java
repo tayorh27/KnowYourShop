@@ -99,7 +99,7 @@ public class GetNearByPlacesFromServer {
                     loading.smoothToHide();
                     iv.setVisibility(View.VISIBLE);
                     tv.setVisibility(View.VISIBLE);
-                    tv.setText("There is no shop available within that radius.");
+                    tv.setText("An error occurred. Check your internet connection.");
                 }
             }
         });

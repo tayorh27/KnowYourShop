@@ -12,7 +12,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.beardedhen.androidbootstrap.AwesomeTextView;
 import com.beardedhen.androidbootstrap.BootstrapAlert;
+import com.beardedhen.androidbootstrap.BootstrapText;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.MainActivity;
 import com.kys.knowyourshop.R;
@@ -28,7 +30,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class RatingActivity extends AppCompatActivity {
 
     TextView shopName, shopDetails;
-    BootstrapAlert visited;
+    AwesomeTextView visited;
     RatingBar ratingBar;
     AppData data;
     String shop_name = "", rate_title = "", rate_comment = "", items = "";
@@ -51,7 +53,7 @@ public class RatingActivity extends AppCompatActivity {
         general = new General(RatingActivity.this);
         shopName = (TextView) findViewById(R.id.rate_shop_name);
         shopDetails = (TextView) findViewById(R.id.rate_shop_details);
-        visited = (BootstrapAlert) findViewById(R.id.tvVisited);
+        visited = (AwesomeTextView) findViewById(R.id.tvVisited);
         ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         ratingBar.setNumStars(5);
         ratingBar.setMax(5);
@@ -63,7 +65,7 @@ public class RatingActivity extends AppCompatActivity {
                 rate_value = rating;
             }
         });
-        visited.setContentDescription(data.getVisited());
+        visited.setText(data.getVisited());
     }
 
     public void ShopNameClick(View view) {

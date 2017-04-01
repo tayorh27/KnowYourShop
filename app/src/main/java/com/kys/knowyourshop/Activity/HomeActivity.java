@@ -58,6 +58,7 @@ import java.util.Map;
 import ss.com.bannerslider.banners.Banner;
 import ss.com.bannerslider.banners.DrawableBanner;
 import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.events.OnBannerClickListener;
 import ss.com.bannerslider.views.BannerSlider;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -154,19 +155,34 @@ public class HomeActivity extends AppCompatActivity
 
         SyncingShops("");
 
-        bannerSlider.setOnClickListener(new View.OnClickListener() {
+        getAdsFromServer = new GetAdsFromServer(HomeActivity.this, this);
+        getAdsFromServer.getAds();
+        bannerSlider.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
-            public void onClick(View v) {
-                int banner_position = bannerSlider.getCurrentSlidePosition();
-                Ads ad = adsArrayList_.get(banner_position);
-                String openLink = ad.link;
-                Log.e("banner", "clicked = " + openLink + " position = " + banner_position);
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(openLink));
-                startActivity(i);
+            public void onClick(int position) {
+                try {
+                    if (position > adsArrayList_.size()) {
+                        int n_position = position - adsArrayList_.size();
+                        Log.e("n_position", "New Position = " + n_position);//0,1,2,||||3,4,5,6,7,8,9
+                        position = n_position;
+                    }
+                    Ads ad = adsArrayList_.get(position);
+                    String openLink = ad.link;
+                    Log.e("banner", "clicked = " + openLink + " position = " + position);
+                    OpenBannerLink(openLink);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
 
+    }
+
+    private void OpenBannerLink(String openLink) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(openLink));
+
+        startActivity(i);
     }
 
     private void SyncingShops(String area) {
@@ -337,8 +353,6 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        getAdsFromServer = new GetAdsFromServer(HomeActivity.this, this);
-        getAdsFromServer.getAds();
         //LoadAds(adsArrayList_);
     }
 
@@ -383,7 +397,6 @@ public class HomeActivity extends AppCompatActivity
         _params.put("type", "Shop");
         PostGeneralClicks postGeneralClicks = new PostGeneralClicks(HomeActivity.this, "log.php", _params);
         postGeneralClicks.execute();
-
     }
 
     private void LoadAds(ArrayList<Ads> adsArrayList1) {

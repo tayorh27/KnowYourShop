@@ -8,8 +8,8 @@
     <string name="desc_slide1">Search for anything you want to buy from shops near you.</string>
     <string name="title_slide2">Availability</string>
     <string name="desc_slide2">Know if your nearby shops have what you want to buy.</string>
-    <string name="title_slide3">Favorites</string>
-    <string name="desc_slide3">Save your favorite shop location.</string>
+    <string name="title_slide3">Ratings</string>
+    <string name="desc_slide3">Give ratings to shops and write a review about the shop.</string>
     <string name="done">Done</string>
     <string name="title_activity_home">HomeActivity</string>
 
@@ -36,4 +36,5 @@
     <string name="accessActivity">Change Password</string>
     <string name="deals">Shop Deals</string>
     <string name="search">Search</string>
+    <string name="info"><u><i>info</i></u></string>
 </resources>
