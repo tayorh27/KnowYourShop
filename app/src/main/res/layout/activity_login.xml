@@ -70,7 +70,7 @@
                     android:onClick="DontHaveAccount"
                     app:bootstrapBrand="success"
                     app:bootstrapSize="lg"
-                    app:bootstrapText="I don't already have an account"
+                    app:bootstrapText="I don't have an account"
                     app:roundedCorners="true" />
 
                 <TextView

@@ -1,5 +1,6 @@
 package com.kys.knowyourshop.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -17,10 +18,17 @@ import com.kys.knowyourshop.network.ForgotPasswordServer;
 
 import java.util.regex.Pattern;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     EditText email;
     General general;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

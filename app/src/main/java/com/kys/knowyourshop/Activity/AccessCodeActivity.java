@@ -1,5 +1,6 @@
 package com.kys.knowyourshop.Activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -16,6 +17,8 @@ import com.kys.knowyourshop.network.VerifyAccessCode;
 
 import java.util.Random;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class AccessCodeActivity extends AppCompatActivity implements VerifyAccessCodeCallback {
 
     EditText access;
@@ -24,6 +27,11 @@ public class AccessCodeActivity extends AppCompatActivity implements VerifyAcces
     EditText pass1, pass2;
     String _username = "";
     General general;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

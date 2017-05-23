@@ -46,6 +46,8 @@ import com.kys.knowyourshop.network.GetShopRatings;
 import com.kys.knowyourshop.network.VolleySingleton;
 import com.wang.avi.AVLoadingIndicatorView;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,7 +171,9 @@ public class InfoActivity extends AppCompatActivity implements MapDetailsCallbac
         } else {
             rateCount.setText(ratingCount + " Rating");
         }
-        rateV.setText(ratingStar);
+        double rs = Double.parseDouble(ratingStar);
+        BigDecimal bd = new BigDecimal(rs).setScale(1, RoundingMode.HALF_UP);
+        rateV.setText(bd.doubleValue() + "");
         ratingBar2.setRating(Float.parseFloat(ratingStar));
         address.setText(full_add);
 

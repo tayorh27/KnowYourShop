@@ -45,8 +45,8 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
     private boolean mRequestingLocationUpdates = false;
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
     private LocationManager mLocationManager;
+    private Location mLastLocation;
 
     private static int UPDATE_INTERVAL = 5000;
     private static int FATEST_INTERVAL = 3000;
@@ -92,12 +92,16 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
+        if (Build.VERSION.SDK_INT > 19) {
+            RequestPermissions();
+        }
+
         if (!isGPSEnabled) {
             ref.smoothToHide();
             iv.setVisibility(View.VISIBLE);
             tv.setText("Your location is not available, please try again.");
             new MaterialDialog.Builder(LocationUserActivity.this)
-                    .title("Error")
+                    .title("GPS")
                     .content("Please enable your GPS")
                     .negativeText("OK")
                     .positiveText("Open Settings")
@@ -109,10 +113,6 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
                         }
                     }).show();
             return;
-        }
-
-        if (Build.VERSION.SDK_INT > 19) {
-            RequestPermissions();
         }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED

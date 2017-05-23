@@ -46,8 +46,10 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
     TextView tv;
     EditText editText;
     SearchAdapter adapter;
-    ArrayList<Product> productArrayList = new ArrayList<>();
+    //ArrayList<Product> productArrayList = new ArrayList<>();
     ArrayList<SpecialProducts> specialProductsArrayList = new ArrayList<>();
+    ArrayList<SpecialProducts> productArrayList = new ArrayList<>();
+
     String[] ca;
 
     @Override
@@ -86,6 +88,7 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
                 String text = String.valueOf(charSequence);
                 if (text.length() > 0) {
                     loading.smoothToShow();
+                    productArrayList.clear();
                     ArrayList<SpecialProducts> customList = new ArrayList<>();
                     for (int k = 0; k < specialProductsArrayList.size(); k++) {
                         String online_product = specialProductsArrayList.get(k).product_name.toLowerCase();
@@ -95,6 +98,7 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
                         }
                     }
                     adapter.LoadRecyclerView(customList);
+                    productArrayList = customList;
                     loading.smoothToHide();
                 }
             }
@@ -137,7 +141,7 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
 
     @Override
     public void onShopsClickListener(View view, int position) {
-        SpecialProducts product = specialProductsArrayList.get(position);
+        SpecialProducts product = productArrayList.get(position);
         PostProductClicks(product);
         Bundle bundle = new Bundle();
         bundle.putString("shop_name", product.shop_name);
