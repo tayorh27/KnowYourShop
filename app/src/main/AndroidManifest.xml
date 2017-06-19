@@ -117,6 +117,9 @@
         <activity
             android:name=".Activity.DealsActivity"
             android:label="@string/deals" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e2895daf14080404c76d334a9f5e71d69f52371f" />
     </application>
 
 </manifest>

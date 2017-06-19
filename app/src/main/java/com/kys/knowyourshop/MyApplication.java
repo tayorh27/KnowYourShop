@@ -5,12 +5,14 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.beardedhen.androidbootstrap.TypefaceProvider;
+import com.crashlytics.android.Crashlytics;
 import com.devs.acr.AutoErrorReporter;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
 import com.kys.knowyourshop.Database.DatabaseDb;
 import com.kys.knowyourshop.Service.MyLocationService;
 
+import io.fabric.sdk.android.Fabric;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -32,6 +34,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         TypefaceProvider.registerDefaultIconSets();
         sInstance = this;
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()

@@ -53,6 +53,7 @@ public class GetProductsFromServer {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int id = jsonObject.getInt("id");
+                            int user_id = jsonObject.getInt("user_id");
                             String shop_name = jsonObject.getString("shop_name");
                             String product_category = jsonObject.getString("product_category");
                             String product_name = jsonObject.getString("product_name");
@@ -60,7 +61,7 @@ public class GetProductsFromServer {
                             String product_description = jsonObject.getString("product_description");
                             String product_logo = jsonObject.getString("product_logo");
                             String inStock = jsonObject.getString("inStock");
-                            arrayList.add(new Product(id, shop_name, product_category, product_name, product_price, product_description, product_logo, inStock));
+                            arrayList.add(new Product(id, user_id, shop_name, product_category, product_name, product_price, product_description, product_logo, inStock));
                         }
                         if (productsCallback != null) {
                             productsCallback.onProductsLoaded(arrayList);
@@ -99,6 +100,7 @@ public class GetProductsFromServer {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int id = jsonObject.getInt("id");
+                            int user_id = jsonObject.getInt("user_id");
                             String shop_name = jsonObject.getString("shop_name");
                             String product_category = jsonObject.getString("product_category");
                             String product_name = jsonObject.getString("product_name");
@@ -117,7 +119,7 @@ public class GetProductsFromServer {
                             String close_time = jsonObject.getString("close_time");
                             String rating = jsonObject.getString("rating");
                             String ratingCount = jsonObject.getString("ratingCount");
-                            arrayList.add(new SpecialProducts(id, shop_name, product_category, product_name, product_price, product_description, product_logo, inStock, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
+                            arrayList.add(new SpecialProducts(id, user_id, shop_name, product_category, product_name, product_price, product_description, product_logo, inStock, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
                         }
                         if (specialProductCallback != null) {
                             specialProductCallback.onProducts(arrayList);

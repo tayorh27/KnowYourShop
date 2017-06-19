@@ -35,7 +35,7 @@ public class RatingDetailsActivity extends AppCompatActivity {
                 String get_title = title.getText().toString();
                 String get_comment = comment.getText().toString();
                 String get_items = items.getText().toString();
-                if (get_title.isEmpty() && get_comment.isEmpty() && get_items.isEmpty()) {
+                if (get_title.isEmpty() || get_comment.isEmpty()) {
                     general.error("Please all fields must be filled");
                     return;
                 }

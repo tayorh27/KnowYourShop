@@ -49,6 +49,7 @@ public class GetShopRatings {
                     if (jsonArray.length() > 0) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            int user_id = jsonObject.getInt("user_id");
                             String shopName = jsonObject.getString("shop_name");
                             String username = jsonObject.getString("username");
                             String title = jsonObject.getString("rating_title");
@@ -56,7 +57,7 @@ public class GetShopRatings {
                             String star = jsonObject.getString("rating_star");
                             String items = jsonObject.getString("items");
                             String date = jsonObject.getString("rating_date");
-                            Rating rating = new Rating(shopName, username, title, comment, star, items, date);
+                            Rating rating = new Rating(user_id, shopName, username, title, comment, star, items, date);
                             arrayList.add(rating);
                         }
                         if (ratingCallback != null) {

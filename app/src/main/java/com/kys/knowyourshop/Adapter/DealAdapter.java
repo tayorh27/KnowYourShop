@@ -12,6 +12,7 @@ import com.kys.knowyourshop.Information.Deal;
 import com.kys.knowyourshop.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by sanniAdewale on 31/03/2017.
@@ -45,11 +46,18 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealHolder> {
     @Override
     public void onBindViewHolder(DealHolder holder, int position) {
         Deal deal = dealArrayList.get(position);
-        holder._deal.setText(deal.deal);
-        holder.expires.setText(deal.expire);
-        holder.comment.setText(deal.comment);
-        holder.shopName.setText(deal.shop);
-        holder.info.setVisibility(View.GONE);
+        String ex = deal.expire;
+        Date date = new Date(ex);
+        long getServerDate = date.getTime();
+        Date date1 = new Date();
+        long getCurrentDate = date1.getTime();
+        if (getCurrentDate > getServerDate) {
+            holder._deal.setText(deal.deal);
+            holder.expires.setText(deal.expire);
+            holder.comment.setText(deal.comment);
+            holder.shopName.setText(deal.shop);
+            holder.info.setVisibility(View.GONE);
+        }
     }
 
     @Override

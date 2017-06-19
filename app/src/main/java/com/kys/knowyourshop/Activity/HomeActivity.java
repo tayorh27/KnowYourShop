@@ -40,6 +40,7 @@ import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.Information.Ads;
 import com.kys.knowyourshop.Information.Shop;
 import com.kys.knowyourshop.Information.User;
+import com.kys.knowyourshop.LocationUserActivity;
 import com.kys.knowyourshop.MainActivity;
 import com.kys.knowyourshop.R;
 import com.kys.knowyourshop.network.GetAdsFromServer;
@@ -81,6 +82,7 @@ public class HomeActivity extends AppCompatActivity
     BannerSlider bannerSlider;
     ArrayList<Ads> adsArrayList_ = new ArrayList<>();
     GetAdsFromServer getAdsFromServer;
+    String sa = "";
 
 
     @Override
@@ -100,7 +102,7 @@ public class HomeActivity extends AppCompatActivity
         user = data.getUser();
         ca = data.getLocation();
         getSupportActionBar().setTitle(ca[0]);
-        toolbar.setSubtitle(ca[1] + ", " + ca[2]);
+        getSupportActionBar().setSubtitle(ca[1] + ", " + ca[2]);
 
         Log.e("Locations", ca[0] + ", " + ca[1] + ", " + ca[2]);
 
@@ -260,6 +262,9 @@ public class HomeActivity extends AppCompatActivity
             Intent intent = new Intent(HomeActivity.this, OthersActivity.class);
             startActivityForResult(intent, CHECK_OTHERS_CODE);
         }
+        if (id == R.id.action_loc) {
+            startActivity(new Intent(HomeActivity.this, LocationUserActivity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -286,6 +291,11 @@ public class HomeActivity extends AppCompatActivity
                     .withSystemInfo()
                     .build()
                     .start();
+        } else if (id == R.id.nav_partner) {
+            String openLink = "https://play.google.com/store/apps/details?id=com.kys.kyspartners";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(openLink));
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -303,7 +313,7 @@ public class HomeActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == CHECK_OTHERS_CODE) {
             Bundle bundle = data.getExtras();
-            String sa = bundle.getString("shop_area");
+            sa = bundle.getString("shop_area");
             SyncingShops(sa);
         }
 
@@ -335,11 +345,23 @@ public class HomeActivity extends AppCompatActivity
             btnOthers.setVisibility(View.GONE);
             int count = shops.size();
             if (count == 0) {
-                avail.setText("There is no shop available in your area.");
+                if (sa.isEmpty()) {
+                    avail.setText("There is no shop available in your area.");
+                } else {
+                    avail.setText("There is no shop available in " + sa + ".");
+                }
             } else if (count == 1) {
-                avail.setText(count + " Shop available in your area.");
+                if (sa.isEmpty()) {
+                    avail.setText(count + " Shop available in your area.");
+                } else {
+                    avail.setText(count + " Shop available in " + sa + ".");
+                }
             } else {
-                avail.setText(count + " Shops available in your area.");
+                if (sa.isEmpty()) {
+                    avail.setText(count + " Shops available in your area.");
+                } else {
+                    avail.setText(count + " Shops available in " + sa + ".");
+                }
             }
             adapter.LoadRecyclerView(shops);
         }
@@ -353,6 +375,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
+        CheckLoggedIn();
         //LoadAds(adsArrayList_);
     }
 
@@ -361,6 +384,7 @@ public class HomeActivity extends AppCompatActivity
         Shop sh = current.get(position);
         PostShopClicks(sh);
         Bundle bundle = new Bundle();
+        bundle.putInt("user_id", sh.user_id);
         bundle.putString("shop_name", sh.name);
         bundle.putString("shop_description", sh.desc);
         bundle.putString("shop_logo", sh.logo);
@@ -385,6 +409,7 @@ public class HomeActivity extends AppCompatActivity
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         Map<String, String> _params = new HashMap<>();
+        _params.put("user_id", shop.user_id + "");
         _params.put("shop_name", shop.name);
         _params.put("product_name", "");
         _params.put("category_name", "");

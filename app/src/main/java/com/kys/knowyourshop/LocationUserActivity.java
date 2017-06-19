@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +37,9 @@ import com.kys.knowyourshop.Callbacks.LocationCallback;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.network.GetLocationFromServer;
 import com.wang.avi.AVLoadingIndicatorView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -56,8 +61,9 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
 
     AVLoadingIndicatorView ref;
     AppData data;
-    TextView tv;
+    TextView tv, tvSkip;
     ImageView iv;
+    Timer timer;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -79,11 +85,14 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_location_user);
 
         data = new AppData(LocationUserActivity.this);
 
         tv = (TextView) findViewById(R.id.tv_info);
+        tvSkip = (TextView) findViewById(R.id.tv_skip);
         iv = (ImageView) findViewById(R.id.click_refresh);
 
         ref = (AVLoadingIndicatorView) findViewById(R.id.refresh);
@@ -128,7 +137,6 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
                 displayLocation();
             }
         }
-
     }
 
     private void RequestPermissions() {
@@ -140,6 +148,8 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
     }
 
     public void RefreshButton(View v) {
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        isGPSEnabled = mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!isGPSEnabled) {
             ref.smoothToHide();
             iv.setVisibility(View.VISIBLE);
@@ -213,8 +223,15 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
+        StartTimer();
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
@@ -226,6 +243,7 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
             mGoogleApiClient.disconnect();
         }
+        timer.cancel();
         super.onStop();
     }
 
@@ -287,5 +305,31 @@ public class LocationUserActivity extends AppCompatActivity implements GoogleApi
         data.setLocationEnter(true);
         startActivity(new Intent(LocationUserActivity.this, HomeActivity.class));
         finish();
+    }
+
+    public void SkipClick(View view) {
+        String[] ca = data.getLocation();
+        if (ca[0].isEmpty()) {
+            data.setLocation("unknown", "unknown", "unknown", "unknown");
+            data.setLocationEnter(true);
+        }
+        startActivity(new Intent(LocationUserActivity.this, HomeActivity.class));
+        finish();
+    }
+
+    private void StartTimer() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(LocationUserActivity.this, "Location taking longer", Toast.LENGTH_SHORT).show();
+                        tvSkip.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        }, 8000);
     }
 }

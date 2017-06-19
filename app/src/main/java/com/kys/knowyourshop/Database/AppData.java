@@ -116,6 +116,16 @@ public class AppData {
         return prefs.getStringSet("shopsAvail", new HashSet<String>());
     }
 
+    public void setShopsUserIdAvailable(Set<String> shops) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putStringSet("shopsIDAvail", shops);
+        editor.apply();
+    }
+
+    public Set<String> getShopsUserIdAvailable() {
+        return prefs.getStringSet("shopsIDAvail", new HashSet<String>());
+    }
+
     public void setVisited(String visited) {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("visited", visited);
@@ -135,5 +145,19 @@ public class AppData {
 
     public boolean getTourShown() {
         return prefs.getBoolean("tour", false);
+    }
+
+    public void setPlacement(boolean stay) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("stay", stay);
+        editor.apply();
+    }
+
+    public boolean getPlacement() {
+        return prefs.getBoolean("stay", false);
+    }
+
+    public void deleteAll() {
+        setLoggedIn(false);
     }
 }

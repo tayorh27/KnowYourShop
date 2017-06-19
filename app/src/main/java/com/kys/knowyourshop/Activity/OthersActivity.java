@@ -119,7 +119,7 @@ public class OthersActivity extends AppCompatActivity implements ShopsClickListe
             tv.setVisibility(View.GONE);
             ArrayList<String> sp = Separation.separateShops(shops);
             for (int i = 0; i < sp.size(); i++) {
-                Shop sh = new Shop(0, "", "", "", "", "", sp.get(i),"", "", "", "", "", "");
+                Shop sh = new Shop(0, 0, "", "", "", "", "", sp.get(i),"", "", "", "", "", "");
                 shopArrayList.add(sh);
             }
             adapter.LoadRecyclerView(shopArrayList);

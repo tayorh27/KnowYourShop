@@ -115,9 +115,20 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:onClick="NotClick"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="lg"
+                app:bootstrapText="I live on this street"
+                app:roundedCorners="true" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:onClick="PlacementClick"
                 app:bootstrapBrand="danger"
                 app:bootstrapSize="lg"
-                app:bootstrapText="No I didn't enter any shop"
+                app:bootstrapText="No, I didn't enter any shop"
                 app:roundedCorners="true" />
 
         </LinearLayout>

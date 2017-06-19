@@ -150,7 +150,7 @@ public class TourActivity extends Activity {
 
     private void launchHomeScreen() {
         ArrayList<Shop> detailses = new ArrayList<>();
-        Shop details = new Shop(0, "no_shop", "", "", "", "", "", "", "", "", "", "", "");
+        Shop details = new Shop(0, 0, "no_shop", "", "", "", "", "", "", "", "", "", "", "");
         detailses.add(details);
         MyApplication.getWritableDatabase().insertMyShop(detailses, false);
         startActivity(new Intent(this, LocationUserActivity.class));

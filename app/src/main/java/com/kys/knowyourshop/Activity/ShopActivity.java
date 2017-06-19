@@ -56,6 +56,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
     CategoryAdapter adapter;
     ArrayList<Category> categoryArrayList = new ArrayList<>();
     String[] ca;
+    int user_id;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -82,6 +83,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         sDesc = (TextView) findViewById(R.id.shop_desc);
 
         Bundle bundle = getIntent().getExtras();
+        user_id = bundle.getInt("user_id",0);
         name = bundle.getString("shop_name");
         desc = bundle.getString("shop_description");
         logo = bundle.getString("shop_logo");
@@ -147,6 +149,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         Category category = categoryArrayList.get(position);
         PostCategoryClicks(category);
         Bundle bundle = new Bundle();
+        bundle.putInt("user_id",user_id);
         bundle.putString("shop_name", name);
         bundle.putString("product_category", category.category);
         Intent intent = new Intent(ShopActivity.this, ProductsActivity.class);
@@ -161,6 +164,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         Map<String, String> _params = new HashMap<>();
+        _params.put("user_id", user_id + "");
         _params.put("shop_name", name);
         _params.put("product_name", "");
         _params.put("category_name", category.category);
@@ -202,8 +206,14 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
         if (id == android.R.id.home) {
-            //NavUtils.navigateUpFromSameTask(this);
             finish();
+        }
+        if (id == R.id.action_rate) {
+            Bundle bundle = new Bundle();
+            bundle.putString("shop_name",name);
+            Intent intent = new Intent(ShopActivity.this, RatingActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

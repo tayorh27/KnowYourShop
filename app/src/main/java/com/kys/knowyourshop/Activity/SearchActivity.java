@@ -26,7 +26,9 @@ import com.kys.knowyourshop.Callbacks.SpecialProductCallback;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.Information.Category;
 import com.kys.knowyourshop.Information.Product;
+import com.kys.knowyourshop.Information.Shop;
 import com.kys.knowyourshop.Information.SpecialProducts;
+import com.kys.knowyourshop.Information.User;
 import com.kys.knowyourshop.R;
 import com.kys.knowyourshop.network.GetProductsFromServer;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -121,6 +123,7 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -128,8 +131,10 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            //NavUtils.navigateUpFromSameTask(this);
             finish();
+        }
+        if (id == R.id.action_ref) {
+            SyncProducts();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -167,6 +172,7 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         Map<String, String> _params = new HashMap<>();
+        _params.put("user_id", product.user_id + "");
         _params.put("shop_name", product.shop_name);
         _params.put("product_name", product.product_name);
         _params.put("category_name", product.product_category);
@@ -187,7 +193,7 @@ public class SearchActivity extends AppCompatActivity implements ProductsCallbac
         if (specialProducts.isEmpty()) {
             loading.smoothToHide();
             tv.setVisibility(View.VISIBLE);
-            tv.setText("There is no product available.");
+            tv.setText("No internet connection.\n Refresh");
         } else {
             loading.smoothToHide();
             tv.setVisibility(View.GONE);

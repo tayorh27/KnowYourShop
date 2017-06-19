@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,8 +63,14 @@ public class AccountActivity extends AppCompatActivity {
         iv.setImageDrawable(textDrawable);
     }
 
+    public void Logout(View view) {
+        data.deleteAll();
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.account, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -71,8 +78,10 @@ public class AccountActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            //NavUtils.navigateUpFromSameTask(this);
             finish();
+        }
+        if (id == R.id.action_change) {
+            //finish();
         }
         return super.onOptionsItemSelected(item);
     }

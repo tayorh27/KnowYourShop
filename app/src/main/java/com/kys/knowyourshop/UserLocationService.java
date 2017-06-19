@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.kys.knowyourshop.Activity.HomeActivity;
 import com.kys.knowyourshop.Callbacks.LocationCallback;
 import com.kys.knowyourshop.Callbacks.ShopsCallback;
 import com.kys.knowyourshop.Database.AppData;
@@ -99,7 +100,6 @@ public class UserLocationService implements GoogleApiClient.ConnectionCallbacks,
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API).build();
         mGoogleApiClient.connect();
-
     }
 
     private boolean checkPlayServices() {
@@ -166,10 +166,13 @@ public class UserLocationService implements GoogleApiClient.ConnectionCallbacks,
             Log.e("After Inside Area", "Inside Area Size = " + shops.size());
             data.setRatingAvailable(true);
             Set<String> myShops = new HashSet<>();
+            Set<String> myShops_user_id = new HashSet<>();
             for (int i = 0; i < shops.size(); i++) {
                 myShops.add(shops.get(i).name);
+                myShops_user_id.add(shops.get(i).user_id + "");
             }
             data.setShopsAvailable(myShops);
+            data.setShopsUserIdAvailable(myShops_user_id);
             String username = "";
             String inside_area = shops.get(0).inside_area;
             String area = shops.get(0).area;
@@ -181,17 +184,19 @@ public class UserLocationService implements GoogleApiClient.ConnectionCallbacks,
                 username = user.username;
             }
             data.setVisited("Hello " + username + ", you were located at " + inside_area + ", " + area + ", " + city + " on " + date + ". Did you visit any shop around there?");
-            PugNotification.with(MyApplication.getAppContext())
-                    .load()
-                    .title("KnowYourShop")
-                    .message("Hello " + username + ", you were on " + inside_area + ", " + area + ", " + city + " today. \nDid you visit any shop around there? Click to rate that shop.")
-                    .bigTextStyle(Notification.EXTRA_BIG_TEXT)
-
-                    .smallIcon(R.drawable.pugnotification_ic_launcher)
-                    .largeIcon(R.drawable.pugnotification_ic_launcher)
-                    .flags(Notification.DEFAULT_ALL)
-                    .simple()
-                    .build();
+            if (!data.getPlacement()) {
+                PugNotification.with(MyApplication.getAppContext())
+                        .load()
+                        .title("KnowYourShop")
+                        .message("Hello " + username + ", you were on " + inside_area + ", " + area + ", " + city + " today. \nDid you visit any shop around there? Click to rate that shop.")
+                        .bigTextStyle(Notification.EXTRA_MESSAGES)
+                        .smallIcon(R.drawable.pugnotification_ic_launcher)
+                        .largeIcon(R.drawable.pugnotification_ic_launcher)
+                        .flags(Notification.DEFAULT_ALL)
+                        .click(HomeActivity.class)
+                        .simple()
+                        .build();
+            }
         }
     }
 }

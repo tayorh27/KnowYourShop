@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.beardedhen.androidbootstrap.AwesomeTextView;
@@ -37,7 +38,8 @@ public class RatingActivity extends AppCompatActivity {
     float rate_value = 0;
     General general;
     private static final int RATING_DETAILS_REQUEST = 2727;
-    Set<String> getShopNames;
+    Set<String> getShopNames, getShopIds;
+    int user_id;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -66,10 +68,22 @@ public class RatingActivity extends AppCompatActivity {
             }
         });
         visited.setText(data.getVisited());
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String shp = bundle.getString("shop_name");
+            shopName.setText("Selected shop: " + shp);
+        }
     }
 
     public void ShopNameClick(View view) {
         getShopNames = data.getShopsAvailable();
+        getShopIds = data.getShopsUserIdAvailable();
+        final String[] ids = (String[]) getShopIds.toArray();
+        if (getShopNames.isEmpty()) {
+            //Toast.makeText(RatingActivity.this, "", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         new MaterialDialog.Builder(RatingActivity.this)
                 .title("Select the shop you visited")
@@ -79,6 +93,7 @@ public class RatingActivity extends AppCompatActivity {
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                         shop_name = String.valueOf(text);
                         shopName.setText("Selected shop: " + text);
+                        user_id = Integer.parseInt(ids[which]);
                         return true;
                     }
                 })
@@ -115,7 +130,7 @@ public class RatingActivity extends AppCompatActivity {
             general.error("Please all details must be filled");
             return;
         }
-        if (rate_title.isEmpty() && rate_comment.isEmpty() && items.isEmpty()) {
+        if (rate_title.isEmpty() || rate_comment.isEmpty()) {
             general.error("Please all details must be filled");
             return;
         }
@@ -131,13 +146,21 @@ public class RatingActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         String date = day + "." + mths[month] + "." + year;
-        PostShopRating postShopRating = new PostShopRating(RatingActivity.this, shop_name, username, rate_title, rate_comment, rv, items, date);
+        PostShopRating postShopRating = new PostShopRating(RatingActivity.this, shop_name, username, rate_title, rate_comment, rv, items, date, user_id);
         postShopRating.PostRating(getShopNames, RatingActivity.this);
     }
 
     public void NotClick(View view) {
         data.setRatingAvailable(false);
         data.setVisited("");
+        startActivity(new Intent(RatingActivity.this, HomeActivity.class));
+        finish();
+    }
+
+    public void PlacementClick(View view) {
+        data.setRatingAvailable(false);
+        data.setVisited("");
+        data.setPlacement(true);
         startActivity(new Intent(RatingActivity.this, HomeActivity.class));
         finish();
     }

@@ -75,6 +75,7 @@ public class GetShopsFromServer {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int id = jsonObject.getInt("id");
+                            int user_id = jsonObject.getInt("user_id");
                             String shop_name = jsonObject.getString("shop_name");
                             String shop_description = jsonObject.getString("shop_description");
                             String shop_logo = jsonObject.getString("shop_logo");
@@ -87,7 +88,7 @@ public class GetShopsFromServer {
                             String close_time = jsonObject.getString("close_time");
                             String rating = jsonObject.getString("rating");
                             String ratingCount = jsonObject.getString("ratingCount");
-                            shops.add(new Shop(id, shop_name, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
+                            shops.add(new Shop(id, user_id, shop_name, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
                         }
                         if (shopsCallback != null) {
                             shopsCallback.onShopsLoaded(shops);
@@ -140,6 +141,7 @@ public class GetShopsFromServer {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int id = jsonObject.getInt("id");
+                            int user_id = jsonObject.getInt("user_id");
                             String shop_name = jsonObject.getString("shop_name");
                             String shop_description = jsonObject.getString("shop_description");
                             String shop_logo = jsonObject.getString("shop_logo");
@@ -152,7 +154,7 @@ public class GetShopsFromServer {
                             String close_time = jsonObject.getString("close_time");
                             String rating = jsonObject.getString("rating");
                             String ratingCount = jsonObject.getString("ratingCount");
-                            shops.add(new Shop(id, shop_name, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
+                            shops.add(new Shop(id, user_id, shop_name, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
                         }
                         if (shopsCallback != null) {
                             shopsCallback.onShopsLoaded(shops);
@@ -198,6 +200,7 @@ public class GetShopsFromServer {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
                             int id = jsonObject.getInt("id");
+                            int user_id = jsonObject.getInt("user_id");
                             String shop_name = jsonObject.getString("shop_name");
                             String shop_description = jsonObject.getString("shop_description");
                             String shop_logo = jsonObject.getString("shop_logo");
@@ -210,7 +213,7 @@ public class GetShopsFromServer {
                             String close_time = jsonObject.getString("close_time");
                             String rating = jsonObject.getString("rating");
                             String ratingCount = jsonObject.getString("ratingCount");
-                            shops.add(new Shop(id, shop_name, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
+                            shops.add(new Shop(id, user_id, shop_name, shop_description, shop_logo, shop_full_address, shop_city, shop_area, shop_inside_area, phone_number, open_time, close_time, rating, ratingCount));
                         }
                         if (shopsCallback != null) {
                             shopsCallback.onShopsLoaded(shops);

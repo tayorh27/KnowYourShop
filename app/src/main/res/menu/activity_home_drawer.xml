@@ -2,18 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <!--<item-->
-        <!--android:id="@+id/nav_camera"-->
-        <!--android:icon="@drawable/ic_menu_camera"-->
-        <!--android:title="Address" />-->
         <item
             android:id="@+id/nav_recommend"
             android:icon="@drawable/ic_shop_black_24px"
             android:title="Recommend A Shops" />
-        <!--<item-->
-        <!--android:id="@+id/nav_slideshow"-->
-        <!--android:icon="@drawable/ic_menu_slideshow"-->
-        <!--android:title="Favorite Shops" />-->
         <item
             android:id="@+id/nav_account"
             android:icon="@drawable/ic_account_circle_black_24px"
@@ -22,14 +14,14 @@
             android:id="@+id/nav_deals"
             android:icon="@drawable/ic_card_giftcard_black_24px"
             android:title="Shop Deals" />
-        <!--<item-->
-        <!--android:id="@+id/nav_fav"-->
-        <!--android:icon="@drawable/ic_settings_black_24px"-->
-        <!--android:title="Favorite Shops" />-->
         <item
-        android:id="@+id/nav_feed"
-        android:icon="@drawable/ic_feedback_black_24px"
-        android:title="Feedback" />
+            android:id="@+id/nav_feed"
+            android:icon="@drawable/ic_feedback_black_24px"
+            android:title="Feedback" />
+        <item
+            android:id="@+id/nav_partner"
+            android:icon="@drawable/ic_feedback_black_24px"
+            android:title="Become A Partner" />
     </group>
     <!--<item android:title="Communicate">-->
     <!--<menu>-->

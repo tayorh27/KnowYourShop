@@ -23,6 +23,7 @@ import com.kys.knowyourshop.Callbacks.RatingCallback;
 import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.Information.Rating;
 import com.kys.knowyourshop.Information.Shop;
+import com.kys.knowyourshop.Information.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,8 +46,10 @@ public class PostShopRating implements RatingCallback {
     General general;
     AppData data;
     String[] ca;
+    User user;
+    int user_id;
 
-    public PostShopRating(Context context, String shopName, String username, String title, String comment, String star, String items, String date) {
+    public PostShopRating(Context context, String shopName, String username, String title, String comment, String star, String items, String date, int user_id) {
         this.context = context;
         this.shopName = shopName;
         this.username = username;
@@ -60,6 +63,8 @@ public class PostShopRating implements RatingCallback {
         ca = data.getLocation();
         volleySingleton = VolleySingleton.getInstance();
         requestQueue = volleySingleton.getRequestQueue();
+        user = data.getUser();
+        this.user_id = user_id;
     }
 
     public void PostRating(final Set<String> shops, final Activity activity) {
@@ -110,6 +115,7 @@ public class PostShopRating implements RatingCallback {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("user_id", user_id + "");
                 params.put("shop_name", shopName);
                 params.put("username", username);
                 params.put("rating_title", title);
@@ -130,11 +136,12 @@ public class PostShopRating implements RatingCallback {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         Map<String, String> _params = new HashMap<>();
+        _params.put("user_id", user_id + "");
         _params.put("shop_name", shopName);
         _params.put("product_name", "");
         _params.put("category_name", "");
         _params.put("rating", star);
-        _params.put("comment", "");
+        _params.put("comment", comment);
         _params.put("day", String.valueOf(day));
         _params.put("month", mths[month]);
         _params.put("year", String.valueOf(year));

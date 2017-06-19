@@ -6,11 +6,12 @@ package com.kys.knowyourshop.Information;
 
 public class Shop {
 
-    public int id;
+    public int id, user_id;
     public String logo, ratingStar, ratingCount, name, desc, full_add, city, area, inside_area, phone_number, open, close;
 
-    public Shop(int id, String name, String desc, String logo, String fullAddress, String city, String area, String inside_area, String phone_number, String open, String close, String ratingStar, String ratingCount) {
+    public Shop(int id, int user_id, String name, String desc, String logo, String fullAddress, String city, String area, String inside_area, String phone_number, String open, String close, String ratingStar, String ratingCount) {
         this.id = id;
+        this.user_id = user_id;
         this.logo = logo;
         this.ratingStar = ratingStar;
         this.ratingCount = ratingCount;
