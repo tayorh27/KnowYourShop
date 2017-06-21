@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.kys.knowyourshop.Information.Rating;
 import com.kys.knowyourshop.R;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 /**
@@ -46,6 +47,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHold
         holder.tv_title.setText(current.title);
         holder.tv_date_user.setText(current.date + " | " + current.username);
         holder.tv_comment.setText(current.comment);
+        holder.tv_rate_value.setText(current.star);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHold
     class RatingHolder extends RecyclerView.ViewHolder {
 
         RatingBar ratingBar;
-        TextView tv_title, tv_date_user, tv_comment;
+        TextView tv_title, tv_date_user, tv_comment, tv_rate_value;
 
         RatingHolder(View itemView) {
             super(itemView);
@@ -64,6 +66,7 @@ public class RatingAdapter extends RecyclerView.Adapter<RatingAdapter.RatingHold
             tv_title = (TextView) itemView.findViewById(R.id.rTitle);
             tv_date_user = (TextView) itemView.findViewById(R.id.rDateUser);
             tv_comment = (TextView) itemView.findViewById(R.id.rComment);
+            tv_rate_value = (TextView) itemView.findViewById(R.id.rRateValue);
         }
     }
 }

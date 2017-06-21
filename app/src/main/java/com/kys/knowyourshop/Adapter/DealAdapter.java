@@ -51,7 +51,9 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealHolder> {
         long getServerDate = date.getTime();
         Date date1 = new Date();
         long getCurrentDate = date1.getTime();
-        if (getCurrentDate > getServerDate) {
+        long diff = getServerDate - getCurrentDate;
+
+        if (diff > 0) {
             holder._deal.setText(deal.deal);
             holder.expires.setText(deal.expire);
             holder.comment.setText(deal.comment);

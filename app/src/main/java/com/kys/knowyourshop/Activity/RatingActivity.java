@@ -23,6 +23,7 @@ import com.kys.knowyourshop.network.PostShopRating;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -40,6 +41,7 @@ public class RatingActivity extends AppCompatActivity {
     private static final int RATING_DETAILS_REQUEST = 2727;
     Set<String> getShopNames, getShopIds;
     int user_id;
+    boolean showDialog = true;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -73,13 +75,25 @@ public class RatingActivity extends AppCompatActivity {
         if (bundle != null) {
             String shp = bundle.getString("shop_name");
             shopName.setText("Selected shop: " + shp);
+            shop_name = shp;
+            showDialog = false;
+            visited.setVisibility(View.GONE);
         }
     }
 
     public void ShopNameClick(View view) {
+        if (!showDialog) {
+            return;
+        }
         getShopNames = data.getShopsAvailable();
         getShopIds = data.getShopsUserIdAvailable();
-        final String[] ids = (String[]) getShopIds.toArray();
+        final String[] myIDs = new String[getShopIds.size()];
+        final Iterator<String> ids = getShopIds.iterator();
+        for (int i = 0; i < getShopNames.size(); i++) {
+            if (ids.hasNext()) {
+                myIDs[i] = ids.next();
+            }
+        }
         if (getShopNames.isEmpty()) {
             //Toast.makeText(RatingActivity.this, "", Toast.LENGTH_SHORT).show();
             return;
@@ -93,7 +107,7 @@ public class RatingActivity extends AppCompatActivity {
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                         shop_name = String.valueOf(text);
                         shopName.setText("Selected shop: " + text);
-                        user_id = Integer.parseInt(ids[which]);
+                        user_id = Integer.parseInt(myIDs[which]);
                         return true;
                     }
                 })
@@ -106,6 +120,11 @@ public class RatingActivity extends AppCompatActivity {
 
     public void ShopRateDetails(View view) {
         Intent intent = new Intent(RatingActivity.this, RatingDetailsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("title", rate_title);
+        bundle.putString("items", items);
+        bundle.putString("comment", rate_comment);
+        intent.putExtras(bundle);
         startActivityForResult(intent, RATING_DETAILS_REQUEST);
     }
 

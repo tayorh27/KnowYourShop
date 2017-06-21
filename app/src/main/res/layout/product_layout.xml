@@ -45,7 +45,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/shop_name"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
+            android:singleLine="true"
+            android:text="Shop Description"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/shop_desc2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shop_desc"
+            android:layout_marginTop="3dp"
             android:singleLine="true"
             android:text="Shop Description"
             android:textSize="15sp" />
@@ -54,8 +64,8 @@
             android:id="@+id/p_price_stock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/shop_desc"
-            android:layout_marginTop="10dp"
+            android:layout_below="@+id/shop_desc2"
+            android:layout_marginTop="3dp"
             android:singleLine="true"
             android:text="Price: 100,000 | in-stock: 40"
             android:textSize="15sp" />

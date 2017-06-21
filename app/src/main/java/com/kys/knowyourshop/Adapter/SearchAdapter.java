@@ -61,6 +61,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductHol
 
         holder.sName.setText(current.product_name);
         holder.sDesc.setText("Shop: " + current.shop_name);
+        holder.sDesc2.setText(current.product_description);
         holder.price_stock.setText("Price: ₦" + current.product_price + " | in-stock: " + current.in_stock);
         imageLoader.get(_url, new ImageLoader.ImageListener() {
             @Override
@@ -84,7 +85,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductHol
 
         ImageView iv;
         TextView price_stock;
-        TextView sName, sDesc;
+        TextView sName, sDesc, sDesc2;
         RelativeLayout relativeLayout;
 
         ProductHolder(View itemView) {
@@ -93,6 +94,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductHol
             price_stock = (TextView) itemView.findViewById(R.id.p_price_stock);
             sName = (TextView) itemView.findViewById(R.id.shop_name);
             sDesc = (TextView) itemView.findViewById(R.id.shop_desc);
+            sDesc2 = (TextView) itemView.findViewById(R.id.shop_desc2);
             relativeLayout = (RelativeLayout) itemView.findViewById(R.id.root);
             relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

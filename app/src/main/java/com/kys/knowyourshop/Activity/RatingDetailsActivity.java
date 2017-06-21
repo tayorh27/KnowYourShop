@@ -28,6 +28,11 @@ public class RatingDetailsActivity extends AppCompatActivity {
         items = (EditText) findViewById(R.id.edit_items);
         general = new General(RatingDetailsActivity.this);
 
+        Bundle bundle = getIntent().getExtras();
+        title.setText(bundle.getString("title"));
+        comment.setText(bundle.getString("comment"));
+        items.setText(bundle.getString("items"));
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

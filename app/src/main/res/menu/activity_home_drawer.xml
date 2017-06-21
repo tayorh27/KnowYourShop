@@ -20,7 +20,7 @@
             android:title="Feedback" />
         <item
             android:id="@+id/nav_partner"
-            android:icon="@drawable/ic_feedback_black_24px"
+            android:icon="@drawable/ic_thumb_up_black_24dp"
             android:title="Become A Partner" />
     </group>
     <!--<item android:title="Communicate">-->

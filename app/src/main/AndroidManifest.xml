@@ -117,9 +117,15 @@
         <activity
             android:name=".Activity.DealsActivity"
             android:label="@string/deals" />
+
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e2895daf14080404c76d334a9f5e71d69f52371f" />
+
+        <activity
+            android:name=".Activity.ViewProductActivity"
+            android:label="@string/title_activity_view_product"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

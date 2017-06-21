@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.VolleyError;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * Created by sanniAdewale on 04/02/2017.
  */
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
     public Context context;
     public LayoutInflater inflater;
@@ -31,9 +32,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public ImageLoader imageLoader;
     public ShopsClickListener shopsClickListener;
 
-    public ProductAdapter(Context context) {
+    public ProductAdapter(Context context, ShopsClickListener shopsClickListener) {
         this.context = context;
-        //this.shopsClickListener = shopsClickListener;
+        this.shopsClickListener = shopsClickListener;
         inflater = LayoutInflater.from(context);
         volleySingleton = VolleySingleton.getInstance();
         imageLoader = volleySingleton.getImageLoader();
@@ -55,11 +56,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public void onBindViewHolder(final ProductHolder holder, int position) {
         Product current = productArrayList.get(position);
         String url = AppConfig.WEB_URL + "images/" + current.product_logo;
-        String _url = url.replace(" ","%20");
+        String _url = url.replace(" ", "%20");
 
         holder.sName.setText(current.product_name);
         holder.sDesc.setText(current.product_description);
-        holder.price_stock.setText("Price: ₦"+current.product_price+" | in-stock: "+current.in_stock);
+        holder.price_stock.setText("Price: ₦" + current.product_price + " | in-stock: " + current.in_stock);
         imageLoader.get(_url, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -71,6 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
             }
         });
+        holder.sDesc2.setVisibility(View.GONE);
     }
 
     @Override
@@ -78,18 +80,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         return productArrayList.size();
     }
 
-    class ProductHolder extends RecyclerView.ViewHolder{
+    class ProductHolder extends RecyclerView.ViewHolder {
 
         ImageView iv;
         TextView price_stock;
-        TextView sName, sDesc;
+        TextView sName, sDesc,sDesc2;
+        RelativeLayout relativeLayout;
 
-        ProductHolder(View itemView){
+        ProductHolder(View itemView) {
             super(itemView);
             iv = (ImageView) itemView.findViewById(R.id.shop_logo);
             price_stock = (TextView) itemView.findViewById(R.id.p_price_stock);
             sName = (TextView) itemView.findViewById(R.id.shop_name);
             sDesc = (TextView) itemView.findViewById(R.id.shop_desc);
+            sDesc2 = (TextView) itemView.findViewById(R.id.shop_desc2);
+            relativeLayout = (RelativeLayout) itemView.findViewById(R.id.root);
+            relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (shopsClickListener != null) {
+                        shopsClickListener.onShopsClickListener(v, getPosition());
+                    }
+                }
+            });
         }
     }
 }
