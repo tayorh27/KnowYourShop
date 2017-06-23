@@ -15,10 +15,17 @@
     <!-- Required on all api levels if you are using setPersisted(true) -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <supports-screens
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@drawable/icon_img"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -125,7 +132,8 @@
         <activity
             android:name=".Activity.ViewProductActivity"
             android:label="@string/title_activity_view_product"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

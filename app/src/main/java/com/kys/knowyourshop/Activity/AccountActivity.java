@@ -1,6 +1,8 @@
 package com.kys.knowyourshop.Activity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.kys.knowyourshop.Database.AppData;
@@ -64,8 +68,19 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     public void Logout(View view) {
-        data.deleteAll();
-        finish();
+        new MaterialDialog.Builder(this)
+                .title("Sign Out")
+                .content("Are you sure you want to sign out?")
+                .negativeText("No")
+                .positiveText("Yes")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        data.deleteAll();
+                        finish();
+                    }
+                }).show();
+
     }
 
     @Override
@@ -81,7 +96,7 @@ public class AccountActivity extends AppCompatActivity {
             finish();
         }
         if (id == R.id.action_change) {
-            //finish();
+            startActivity(new Intent(AccountActivity.this, ChangePasswordActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

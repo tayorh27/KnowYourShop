@@ -86,8 +86,13 @@ public class PostShopRating implements RatingCallback {
                         new UpdateRatingTask().execute();
                         general.dismissDialog();
                         general.success("Shop successfully rated");
-                        if (shops.size() > 1) {
-                            askBeforeClosing(activity);
+                        if (shops != null) {
+                            if (shops.size() > 1) {
+                                askBeforeClosing(activity);
+                            } else {
+                                context.startActivity(new Intent(context, HomeActivity.class));
+                                activity.finish();
+                            }
                         } else {
                             context.startActivity(new Intent(context, HomeActivity.class));
                             activity.finish();

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -57,6 +58,7 @@ public class GetDealsFromServer {
                             iv.setVisibility(View.VISIBLE);
                             tv.setVisibility(View.VISIBLE);
                             tv.setText("There is no deal available yet.");
+                            Toast.makeText(context,"There is no deal available yet.",Toast.LENGTH_SHORT).show();
                         }
                         return;
                     }

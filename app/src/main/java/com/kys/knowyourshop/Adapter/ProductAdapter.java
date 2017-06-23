@@ -60,7 +60,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         holder.sName.setText(current.product_name);
         holder.sDesc.setText(current.product_description);
-        holder.price_stock.setText("Price: ₦" + current.product_price + " | in-stock: " + current.in_stock);
+        holder.price_stock.setText("Price: ₦" + current.product_price);
         imageLoader.get(_url, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
@@ -72,7 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
             }
         });
-        holder.sDesc2.setVisibility(View.GONE);
+        holder.sDesc2.setText("Stock level: " + current.in_stock);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         ImageView iv;
         TextView price_stock;
-        TextView sName, sDesc,sDesc2;
+        TextView sName, sDesc, sDesc2;
         RelativeLayout relativeLayout;
 
         ProductHolder(View itemView) {

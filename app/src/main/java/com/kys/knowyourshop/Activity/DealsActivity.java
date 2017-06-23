@@ -20,6 +20,7 @@ import com.kys.knowyourshop.network.GetDealsFromServer;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DealsActivity extends AppCompatActivity implements View.OnClickListener, ShopsClickListener, DealCallback {
 
@@ -96,7 +97,19 @@ public class DealsActivity extends AppCompatActivity implements View.OnClickList
             loading.smoothToHide();
             iv.setVisibility(View.GONE);
             tv.setVisibility(View.GONE);
-            adapter.LoadRecyclerView(deals);
+            ArrayList<Deal> custom = new ArrayList<>();
+            for (Deal deal : deals) {
+                String ex = deal.expire;
+                Date date = new Date(ex);
+                long getServerDate = date.getTime();
+                Date date1 = new Date();
+                long getCurrentDate = date1.getTime();
+                long diff = getServerDate - getCurrentDate;
+                if (diff > 0) {
+                    custom.add(deal);
+                }
+            }
+            adapter.LoadRecyclerView(custom);
         }
     }
 }
