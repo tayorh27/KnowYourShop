@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.bumptech.glide.Glide;
 import com.kys.knowyourshop.AppConfig;
 import com.kys.knowyourshop.Callbacks.ShopsClickListener;
 import com.kys.knowyourshop.Callbacks.SparkButtonCallback;
@@ -69,17 +70,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         holder.sDesc.setText(current.desc);
         holder.ratingBar.setRating(Float.parseFloat(current.ratingStar));
         holder.ratingCount.setText("(" + current.ratingCount + ")");
-        imageLoader.get(_url, new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                holder.iv.setImageBitmap(response.getBitmap());
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
+        Glide.with(context).load(_url).fitCenter().centerCrop().placeholder(R.drawable.no_logo).crossFade().error(R.drawable.no_logo).into(holder.iv);
+//        imageLoader.get(_url, new ImageLoader.ImageListener() {
+//            @Override
+//            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+//                holder.iv.setImageBitmap(response.getBitmap());
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
         Calendar calendar = Calendar.getInstance();
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         String[] mths = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};

@@ -9,10 +9,13 @@ import com.crashlytics.android.Crashlytics;
 import com.devs.acr.AutoErrorReporter;
 import com.google.android.gms.gcm.GcmNetworkManager;
 import com.google.android.gms.gcm.PeriodicTask;
+import com.kys.knowyourshop.Database.AppData;
 import com.kys.knowyourshop.Database.DatabaseDb;
+import com.kys.knowyourshop.Information.User;
 import com.kys.knowyourshop.Service.MyLocationService;
 
 import io.fabric.sdk.android.Fabric;
+import io.fabric.sdk.android.Logger;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 /**
@@ -23,7 +26,8 @@ public class MyApplication extends Application {
     private static MyApplication sInstance;
     private String TASK_TAG_PERIODIC = "myTask";
     private static DatabaseDb database;
-
+    AppData data;
+    User user;
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -37,6 +41,9 @@ public class MyApplication extends Application {
         Fabric.with(this, new Crashlytics());
         TypefaceProvider.registerDefaultIconSets();
         sInstance = this;
+        data = new AppData(getAppContext());
+        user = data.getUser();
+        logUser();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
                 .setDefaultFontPath("avenir_light.ttf")
                 .setFontAttrId(R.attr.fontPath)
@@ -44,10 +51,10 @@ public class MyApplication extends Application {
         );
         MyTask();
         database = new DatabaseDb(this);
-        AutoErrorReporter.get(this)
-                .setEmailAddresses("gisanrinadetayo@gmail.com")
-                .setEmailSubject("Auto Crash Report")
-                .start();
+//        AutoErrorReporter.get(this)
+//                .setEmailAddresses("gisanrinadetayo@gmail.com")
+//                .setEmailSubject("Auto Crash Report")
+//                .start();
     }
 
     private void MyTask() {
@@ -74,5 +81,13 @@ public class MyApplication extends Application {
         }
         return database;
 
+    }
+
+    private void logUser() {
+        // TODO: Use the current user's information
+        // You can call any combination of these three methods
+        Crashlytics.setUserIdentifier(user.username);
+        Crashlytics.setUserEmail(user.email);
+        Crashlytics.setUserName(user.username);
     }
 }

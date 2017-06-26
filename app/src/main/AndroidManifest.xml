@@ -133,7 +133,8 @@
             android:name=".Activity.ViewProductActivity"
             android:label="@string/title_activity_view_product"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.ChangePasswordActivity"></activity>
+        <activity android:name=".Activity.ChangePasswordActivity" />
+        <activity android:name=".Activity.ImageActivity"></activity>
     </application>
 
 </manifest>

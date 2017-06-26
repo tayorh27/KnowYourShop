@@ -10,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.bumptech.glide.Glide;
 import com.kys.knowyourshop.Callbacks.ShopsClickListener;
 import com.kys.knowyourshop.Information.Recommend;
 import com.kys.knowyourshop.R;
@@ -52,7 +53,7 @@ public class RecommendAdapter extends RecyclerView.Adapter<RecommendAdapter.Reco
         holder.rate_number.setText(recommend.rating);
         holder.shopName.setText(recommend.shop_name);
         holder.shopAdd.setText(recommend.shop_add);
-        Picasso.with(context).load(recommend.icon).into(holder.imageView);
+        Glide.with(context).load(recommend.icon).fitCenter().centerCrop().placeholder(R.drawable.no_logo).crossFade().error(R.drawable.no_logo).into(holder.imageView);
     }
 
     @Override

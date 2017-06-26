@@ -13,11 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/p_image"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@drawable/image_shape" />
+
 
         <TextView
             android:layout_width="match_parent"

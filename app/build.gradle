@@ -93,5 +93,7 @@ dependencies {
     compile 'com.github.yesidlazaro:GmailBackground:1.2.0'
     compile 'com.webianks.library:easy-feedback:1.0.0'
     compile 'com.devs:acr:1.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.master.android:glideimageview:1.0'
     testCompile 'junit:junit:4.12'
 }

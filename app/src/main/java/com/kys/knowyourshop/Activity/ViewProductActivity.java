@@ -1,6 +1,7 @@
 package com.kys.knowyourshop.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.kys.knowyourshop.AppConfig;
 import com.kys.knowyourshop.R;
 import com.squareup.picasso.Picasso;
@@ -33,6 +35,7 @@ public class ViewProductActivity extends AppCompatActivity {
     TextView tvDesc, tvCat, tvPrice, tvStock, tvShopName;
     ImageView imageView;
     AppBarLayout appBarLayout;
+    String mUrl;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -77,7 +80,18 @@ public class ViewProductActivity extends AppCompatActivity {
 
         String url = AppConfig.WEB_URL + "images/" + product_logo;
         String _url = url.replace(" ", "%20");
-        Picasso.with(ViewProductActivity.this).load(_url).centerCrop().placeholder(R.drawable.no_logo).fit().into(imageView);
+        mUrl = _url;
+        Glide.with(ViewProductActivity.this).load(_url).fitCenter().centerCrop().placeholder(R.drawable.no_logo).crossFade().error(R.drawable.no_logo).into(imageView);
+        // Picasso.with(ViewProductActivity.this).load(_url).centerCrop().placeholder(R.drawable.no_logo).fit().into(imageView);
+    }
+
+    public void ImageClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("img", mUrl);
+        bundle.putString("name", product_name);
+        Intent intent = new Intent(ViewProductActivity.this, ImageActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
 

@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.kys.knowyourshop.Adapter.CategoryAdapter;
 import com.kys.knowyourshop.Adapter.HomeAdapter;
 import com.kys.knowyourshop.AppConfig;
@@ -83,7 +84,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         sDesc = (TextView) findViewById(R.id.shop_desc);
 
         Bundle bundle = getIntent().getExtras();
-        user_id = bundle.getInt("user_id",0);
+        user_id = bundle.getInt("user_id", 0);
         name = bundle.getString("shop_name");
         desc = bundle.getString("shop_description");
         logo = bundle.getString("shop_logo");
@@ -99,17 +100,18 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setTitle(name);
         String url = AppConfig.WEB_URL + "images/" + logo;
         String _url = url.replace(" ", "%20");
-        imageLoader.get(_url, new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                ivv.setImageBitmap(response.getBitmap());
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
+        Glide.with(ShopActivity.this).load(_url).fitCenter().centerCrop().placeholder(R.drawable.no_logo).crossFade().error(R.drawable.no_logo).into(ivv);
+//        imageLoader.get(_url, new ImageLoader.ImageListener() {
+//            @Override
+//            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+//                ivv.setImageBitmap(response.getBitmap());
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
         sName.setText(name);
         sDesc.setText(desc);
         ratingBar.setRating(Float.parseFloat(ratingStar));
@@ -149,7 +151,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         Category category = categoryArrayList.get(position);
         PostCategoryClicks(category);
         Bundle bundle = new Bundle();
-        bundle.putInt("user_id",user_id);
+        bundle.putInt("user_id", user_id);
         bundle.putString("shop_name", name);
         bundle.putString("product_category", category.category);
         Intent intent = new Intent(ShopActivity.this, ProductsActivity.class);
@@ -210,7 +212,7 @@ public class ShopActivity extends AppCompatActivity implements View.OnClickListe
         }
         if (id == R.id.action_rate) {
             Bundle bundle = new Bundle();
-            bundle.putString("shop_name",name);
+            bundle.putString("shop_name", name);
             Intent intent = new Intent(ShopActivity.this, RatingActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);

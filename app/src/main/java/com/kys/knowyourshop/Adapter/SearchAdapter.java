@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.bumptech.glide.Glide;
 import com.kys.knowyourshop.AppConfig;
 import com.kys.knowyourshop.Callbacks.ShopsClickListener;
 import com.kys.knowyourshop.Information.Product;
@@ -63,17 +64,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ProductHol
         holder.sDesc.setText("Shop: " + current.shop_name);
         holder.sDesc2.setText(current.product_description);
         holder.price_stock.setText("Price: ₦" + current.product_price + " | in-stock: " + current.in_stock);
-        imageLoader.get(_url, new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                holder.iv.setImageBitmap(response.getBitmap());
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
+        Glide.with(context).load(_url).fitCenter().centerCrop().placeholder(R.drawable.no_logo).crossFade().error(R.drawable.no_logo).into(holder.iv);
+//        imageLoader.get(_url, new ImageLoader.ImageListener() {
+//            @Override
+//            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+//                holder.iv.setImageBitmap(response.getBitmap());
+//            }
+//
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//
+//            }
+//        });
     }
 
     @Override
