@@ -154,7 +154,7 @@ public class AppData {
     }
 
     public boolean getPlacement() {
-        return prefs.getBoolean("stay", false);
+        return prefs.getBoolean("stay", true);
     }
 
     public void deleteAll() {

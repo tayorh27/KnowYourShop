@@ -34,8 +34,8 @@
 
                     <ImageView
                         android:id="@+id/shop_logo"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
                         android:src="@drawable/dominos" />
 
                 </LinearLayout>
@@ -58,7 +58,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:layout_toRightOf="@+id/shop_rating"
-                        android:text="(0)" />
+                        android:text="(0)"
+                        android:singleLine="true"/>
 
                     <TextView
                         android:id="@+id/shop_name"
@@ -69,16 +70,16 @@
                         android:singleLine="true"
                         android:text="Shop Name"
                         android:textColor="#000"
-                        android:textSize="20sp" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/shop_desc"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/shop_name"
                         android:layout_marginTop="5dp"
                         android:text="Shop Description"
-                        android:textSize="15sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
             </RelativeLayout>
@@ -103,7 +104,7 @@
                         android:layout_marginTop="5dp"
                         android:text="Opening Hours"
                         android:textColor="#000"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -119,7 +120,7 @@
                         android:layout_below="@+id/openHours"
                         android:layout_marginTop="15dp"
                         android:text="Monday - Saturday"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/day2"
@@ -129,7 +130,7 @@
                         android:layout_below="@+id/openHours"
                         android:layout_marginTop="15dp"
                         android:text="10-12"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/day3"
@@ -138,7 +139,7 @@
                         android:layout_below="@+id/day1"
                         android:layout_marginTop="5dp"
                         android:text="Sunday"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/day4"
@@ -148,7 +149,7 @@
                         android:layout_below="@+id/day1"
                         android:layout_marginTop="5dp"
                         android:text="closed"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -172,7 +173,7 @@
                         android:layout_marginTop="5dp"
                         android:text="Contact Details"
                         android:textColor="#000"
-                        android:textSize="25sp" />
+                        android:textSize="20sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -195,12 +196,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/contact"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         android:layout_toRightOf="@+id/call_icon"
                         android:onClick="CallNumber"
                         android:text="Number"
                         android:textColor="@color/colorAccent"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <ImageView
                         android:id="@+id/address_icon"
@@ -216,11 +217,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/call_icon"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="20dp"
                         android:layout_toRightOf="@+id/address_icon"
                         android:onClick="CallNumber"
                         android:text="Address"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
             </android.support.v7.widget.CardView>
@@ -244,7 +245,7 @@
                         android:layout_marginTop="5dp"
                         android:text="1 Ratings"
                         android:textColor="#000"
-                        android:textSize="18sp" />
+                        android:textSize="12sp" />
 
                     <RatingBar
                         android:id="@+id/rateStar"
@@ -263,7 +264,7 @@
                         android:layout_toLeftOf="@+id/rateStar"
                         android:text="3.0"
                         android:textColor="#000"
-                        android:textSize="16sp" />
+                        android:textSize="12sp" />
 
                 </RelativeLayout>
 
@@ -296,7 +297,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_alignParentRight="true"
-                        android:layout_margin="10dp"
+                        android:layout_marginTop="10dp"
                         app:indicatorColor="@color/colorAccent"
                         app:indicatorName="BallClipRotateIndicator" />
                 </RelativeLayout>
@@ -305,12 +306,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:padding="2dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/ic_directions_car_black_24px" />
 
@@ -318,14 +319,14 @@
                         android:id="@+id/tvDistance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginTop="10dp"
                         android:text="0 km" />
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginTop="5dp"
                         android:padding="0dp"
                         android:src="@drawable/ic_access_time_black_24px" />

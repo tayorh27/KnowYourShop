@@ -79,6 +79,9 @@ public class ViewProductActivity extends AppCompatActivity {
         tvShopName.setText(shop_name);
 
         String url = AppConfig.WEB_URL + "images/" + product_logo;
+        if (product_logo.contains("http") || product_logo.contains("www.")) {
+            url = product_logo;
+        }
         String _url = url.replace(" ", "%20");
         mUrl = _url;
         Glide.with(ViewProductActivity.this).load(_url).fitCenter().centerCrop().placeholder(R.drawable.no_logo).crossFade().error(R.drawable.no_logo).into(imageView);
